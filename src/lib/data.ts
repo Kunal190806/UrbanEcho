@@ -5,6 +5,7 @@ export type FavoritePlace = {
   name: string;
   address: string;
   icon: LucideIcon;
+  href: string;
 };
 
 export const favoritePlaces: FavoritePlace[] = [
@@ -12,21 +13,25 @@ export const favoritePlaces: FavoritePlace[] = [
     name: 'Home',
     address: 'A-123, Lajpat Nagar, New Delhi',
     icon: Home,
+    href: '/',
   },
   {
     name: 'Work',
     address: 'Cyber Hub, Gurugram',
     icon: Briefcase,
+    href: '/work',
   },
   {
     name: 'City Library',
     address: 'Nehru Memorial Museum & Library',
     icon: Library,
+    href: '/city-library',
   },
   {
     name: 'Blue Tokai Coffee',
     address: 'Khan Market, New Delhi',
     icon: Coffee,
+    href: '/coffee',
   },
 ];
 

@@ -1,4 +1,4 @@
-import { Menu, User } from 'lucide-react';
+import { Menu } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Logo } from '@/components/icons';
 import { FavoritePlaces } from '@/components/dashboard/favorite-places';
@@ -50,8 +50,8 @@ export default function Home() {
                   </Button>
                 </SheetTrigger>
                 <SheetContent side="left" className="flex flex-col">
-                  <SheetHeader className="sr-only">
-                    <SheetTitle>Navigation Menu</SheetTitle>
+                  <SheetHeader>
+                    <SheetTitle className='sr-only'>Navigation Menu</SheetTitle>
                   </SheetHeader>
                   <div className="flex h-16 items-center border-b px-6">
                     <div className="flex items-center gap-3 font-semibold font-headline">

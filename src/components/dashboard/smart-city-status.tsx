@@ -13,9 +13,9 @@ const StatusIndicator = ({ status }: { status: Status }) => (
   <span
     aria-label={`${status} status`}
     className={cn("h-2.5 w-2.5 rounded-full", {
-      "bg-[hsl(var(--chart-2))]": status === "good",
-      "bg-[hsl(var(--chart-4))]": status === "moderate",
-      "bg-destructive": status === "poor",
+      "bg-green-500": status === "good",
+      "bg-yellow-500": status === "moderate",
+      "bg-red-500": status === "poor",
     })}
   />
 );
@@ -39,7 +39,7 @@ export function SmartCityStatus() {
                 <StatusIndicator status={item.status} />
                 <span className="text-muted-foreground">{item.label}</span>
               </div>
-              <span className="font-medium">{item.value}</span>
+              <span className="font-medium text-foreground">{item.value}</span>
             </li>
           ))}
         </ul>

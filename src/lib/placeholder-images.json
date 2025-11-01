@@ -59,6 +59,30 @@
       "description": "An ancient, grand tomb with intricate Mughal architecture.",
       "imageUrl": "https://images.unsplash.com/photo-1508213824875-83a3d36e72a1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxodW1heXVuJ3MlMjB0b21ifGVufDB8fHx8MTc2MjI0NzE4OHww&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "historic tomb"
+    },
+    {
+      "id": "library-hero",
+      "description": "A sunlit modern library with comfortable seating.",
+      "imageUrl": "https://images.unsplash.com/photo-1521587760476-6c12a4b040da?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxsaWJyYXJ5fGVufDB8fHx8MTc2MjMyOTE3M3ww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "modern library"
+    },
+    {
+      "id": "book-1",
+      "description": "Book cover for 'The Women' by Kristin Hannah.",
+      "imageUrl": "https://images.unsplash.com/photo-1535398089889-dd807df1dfaa?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxib29rJTIwY292ZXJ8ZW58MHx8fHwxNzYxOTg1MDc5fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "book cover"
+    },
+    {
+      "id": "book-2",
+      "description": "Book cover for 'The Heaven & Earth Grocery Store' by James McBride.",
+      "imageUrl": "https://images.unsplash.com/photo-1592496431122-2349e0fbc666?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxib29rJTIwY292ZXJ8ZW58MHx8fHwxNzYxOTg1MDc5fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "book cover"
+    },
+    {
+      "id": "book-3",
+      "description": "Book cover for 'Knife' by Salman Rushdie.",
+      "imageUrl": "https://images.unsplash.com/photo-1528459105426-b9548367069b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxib29rJTIwY292ZXJ8ZW58MHx8fHwxNzYxOTg1MDc5fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "book cover"
     }
   ]
 }

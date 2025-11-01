@@ -11,9 +11,9 @@ export type FavoritePlace = {
 
 export const favoritePlaces: FavoritePlace[] = [
   {
-    name: 'Energy Hub',
+    name: 'Home',
     address: 'Monitor your home consumption',
-    icon: Zap,
+    icon: Home,
     href: '/',
   },
   {
@@ -113,3 +113,81 @@ export const nearbyStations: NearbyStation[] = [
     type: 'Petrol',
   },
 ];
+
+export type FeaturedLibrary = {
+    name: string;
+    location: string;
+    status: "Open" | "Closed";
+    timing: string;
+    rating: number;
+}
+
+export const featuredLibraries: FeaturedLibrary[] = [
+    {
+        name: "Central City Library",
+        location: "Connaught Place, Delhi",
+        status: "Open",
+        timing: "Closes 9 PM",
+        rating: 4.9,
+    },
+    {
+        name: "Nehru Memorial Museum & Library",
+        location: "Teen Murti Marg, Delhi",
+        status: "Open",
+        timing: "Closes 5 PM",
+        rating: 4.8,
+    },
+    {
+        name: "The Community Bookshelf",
+        location: "Sector 56, Gurugram",
+        status: "Closed",
+        timing: "Opens 10 AM",
+        rating: 4.7,
+    }
+]
+
+export type LibraryEvent = {
+    title: string;
+    library: string;
+    date: string;
+    time: string;
+}
+
+export const libraryEvents: LibraryEvent[] = [
+    {
+        title: "Author Meet & Greet with Anand Neelakantan",
+        library: "Central City Library",
+        date: "JUL 28",
+        time: "6:00 PM - 7:00 PM",
+    },
+    {
+        title: "Children's Storytelling Hour",
+        library: "The Community Bookshelf",
+        date: "AUG 02",
+        time: "11:00 AM - 12:00 PM",
+    }
+]
+
+export type NewBookArrival = {
+    title: string;
+    author: string;
+    imageId: string;
+}
+
+export const newBookArrivals: NewBookArrival[] = [
+    {
+        title: "The Women",
+        author: "Kristin Hannah",
+        imageId: "book-1",
+    },
+    {
+        title: "The Heaven & Earth Grocery Store",
+        author: "James McBride",
+        imageId: "book-2",
+    },
+    {
+        title: "Knife",
+        author: "Salman Rushdie",
+        imageId: "book-3",
+    }
+]

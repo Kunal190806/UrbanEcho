@@ -6,21 +6,16 @@ import {
   TabsList,
   TabsTrigger,
 } from "@/components/ui/tabs";
-import { RoutePlanner } from "@/components/dashboard/route-planner";
 import { PoiRecommender } from "@/components/dashboard/poi-recommender";
 import { SustainableRoutes } from "@/components/dashboard/sustainable-routes";
-import { Map, Lightbulb, Leaf, BookHeart, Shield } from "lucide-react";
+import { Lightbulb, Leaf, BookHeart, Shield } from "lucide-react";
 import { MemoryJournal } from "./memory-journal";
 import { Safety } from "./safety";
 
 export function DashboardTabs() {
   return (
-    <Tabs defaultValue="planner" className="w-full">
-      <TabsList className="grid w-full grid-cols-5 h-12">
-        <TabsTrigger value="planner" className="text-sm">
-          <Map className="mr-2 h-4 w-4" />
-          Route Planner
-        </TabsTrigger>
+    <Tabs defaultValue="discover" className="w-full">
+      <TabsList className="grid w-full grid-cols-4 h-12">
         <TabsTrigger value="discover" className="text-sm">
           <Lightbulb className="mr-2 h-4 w-4" />
           Discover
@@ -38,9 +33,6 @@ export function DashboardTabs() {
           Safety
         </TabsTrigger>
       </TabsList>
-      <TabsContent value="planner" className="mt-6">
-        <RoutePlanner />
-      </TabsContent>
       <TabsContent value="discover" className="mt-6">
         <PoiRecommender />
       </TabsContent>

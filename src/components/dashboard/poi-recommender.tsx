@@ -1,6 +1,7 @@
 "use client";
 
-import { useFormState, useFormStatus } from "react-dom";
+import { useActionState } from "react";
+import { useFormStatus } from "react-dom";
 import { getPoiSuggestions } from "@/app/actions";
 import { Button } from "@/components/ui/button";
 import {
@@ -30,7 +31,7 @@ function SubmitButton() {
 
 export function PoiRecommender() {
   const initialState = { message: "", errors: {}, data: null };
-  const [state, dispatch] = useFormState(getPoiSuggestions, initialState);
+  const [state, dispatch] = useActionState(getPoiSuggestions, initialState);
   const placeholderImages = PlaceHolderImages.filter((img) =>
     img.id.startsWith("poi-")
   );

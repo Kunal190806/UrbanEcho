@@ -1,6 +1,7 @@
 "use client";
 
-import { useFormState, useFormStatus } from "react-dom";
+import { useActionState } from "react";
+import { useFormStatus } from "react-dom";
 import { getPersonalizedRoute } from "@/app/actions";
 import { Button } from "@/components/ui/button";
 import {
@@ -37,7 +38,7 @@ function SubmitButton() {
 
 export function RoutePlanner() {
   const initialState = { message: "", errors: {}, data: null };
-  const [state, dispatch] = useFormState(getPersonalizedRoute, initialState);
+  const [state, dispatch] = useActionState(getPersonalizedRoute, initialState);
 
   return (
     <Card>

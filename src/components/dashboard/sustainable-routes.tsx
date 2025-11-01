@@ -1,6 +1,7 @@
 "use client";
 
-import { useFormState, useFormStatus } from "react-dom";
+import { useActionState } from "react";
+import { useFormStatus } from "react-dom";
 import { getSustainableRoutes } from "@/app/actions";
 import { Button } from "@/components/ui/button";
 import {
@@ -35,7 +36,7 @@ function SubmitButton() {
 
 export function SustainableRoutes() {
   const initialState = { message: "", errors: {}, data: null };
-  const [state, dispatch] = useFormState(getSustainableRoutes, initialState);
+  const [state, dispatch] = useActionState(getSustainableRoutes, initialState);
 
   const chartData =
     state.data?.routes.map((route, index) => ({

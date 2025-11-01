@@ -12,15 +12,8 @@ import {
   suggestSustainableRoutes,
   type SustainableRouteSuggestionsInput,
 } from "@/ai/flows/sustainable-route-suggestions";
-import { z } from "zod";
+import { poiSchema, routePlanSchema, sustainableRouteSchema } from "@/lib/schemas";
 
-const routePlanSchema = z.object({
-  startLocation: z.string().min(1, "Start location is required"),
-  endLocation: z.string().min(1, "End location is required"),
-  preferredModes: z
-    .array(z.enum(["metro", "bus", "ev", "auto", "walking"]))
-    .min(1, "Select at least one transport mode"),
-});
 
 export async function getPersonalizedRoute(prevState: any, formData: FormData) {
   const validatedFields = routePlanSchema.safeParse({
@@ -46,11 +39,6 @@ export async function getPersonalizedRoute(prevState: any, formData: FormData) {
     return { message: "An error occurred while planning the route.", errors: {} };
   }
 }
-
-const poiSchema = z.object({
-  travelHistory: z.string().min(1, "Travel history is required"),
-  preferences: z.string().min(1, "Preferences are required"),
-});
 
 export async function getPoiSuggestions(prevState: any, formData: FormData) {
   const validatedFields = poiSchema.safeParse({
@@ -79,11 +67,6 @@ export async function getPoiSuggestions(prevState: any, formData: FormData) {
     return { message: "An error occurred while fetching suggestions.", errors: {} };
   }
 }
-
-const sustainableRouteSchema = z.object({
-  startLocation: z.string().min(1, "Start location is required"),
-  endLocation: z.string().min(1, "End location is required"),
-});
 
 export async function getSustainableRoutes(
   prevState: any,

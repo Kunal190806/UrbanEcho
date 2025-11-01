@@ -14,11 +14,11 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Loader2, Car, TramFront, Bus, Walk, Zap } from "lucide-react";
+import { Loader2, Car, TramFront, Bus, Footprints, Zap } from "lucide-react";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
 const transportOptions = [
-  { id: "walking", label: "Walking", icon: Walk },
+  { id: "walking", label: "Walking", icon: Footprints },
   { id: "bus", label: "Bus", icon: Bus },
   { id: "metro", label: "Metro", icon: TramFront },
   { id: "ev", label: "EV", icon: Zap },

@@ -4,7 +4,6 @@ import { DashboardTabs } from '@/components/dashboard/dashboard-tabs';
 import { TravelPreferenceModal } from '@/components/dashboard/travel-preference-modal';
 import { SmartWidgets } from '@/components/dashboard/smart-widgets';
 import { PlaceHolderImages } from "@/lib/placeholder-images";
-import { UserMenu } from '@/components/auth/user-menu';
 
 export default function Home() {
   const heroImage = PlaceHolderImages.find((img) => img.id === 'map');
@@ -16,7 +15,6 @@ export default function Home() {
           <h1 className="flex-1 text-xl font-semibold font-headline md:text-2xl">
             Smart City Navigator
           </h1>
-          <UserMenu />
         </div>
         <div className="relative h-64 w-full overflow-hidden rounded-xl shadow-lg md:h-[400px]">
           {heroImage ? (

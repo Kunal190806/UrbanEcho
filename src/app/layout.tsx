@@ -8,7 +8,6 @@ import { Logo } from '@/components/icons';
 import { FavoritePlaces } from '@/components/dashboard/favorite-places';
 import { SmartCityStatus } from '@/components/dashboard/smart-city-status';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
-import { FirebaseProvider } from '@/firebase/provider';
 import { UserMenu } from '@/components/auth/user-menu';
 import { ThemeToggle } from '@/components/theme-toggle';
 
@@ -36,7 +35,6 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <FirebaseProvider>
             <div className="flex min-h-screen w-full flex-col bg-muted/40">
               <div className="grid min-h-screen w-full lg:grid-cols-[280px_1fr]">
                 <aside className="hidden border-r bg-card/50 lg:block">
@@ -100,7 +98,6 @@ export default function RootLayout({
                 </div>
               </div>
             </div>
-          </FirebaseProvider>
           <Toaster />
         </ThemeProvider>
       </body>

@@ -11,34 +11,45 @@ import {
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { LogIn, LogOut, User as UserIcon } from 'lucide-react';
-import { useUser, useAuth } from '@/firebase';
-import {
-  GoogleAuthProvider,
-  signInWithPopup,
-  signOut,
-} from 'firebase/auth';
+import { useState } from 'react';
 
-export function UserMenu() {
-  const { user, isLoading } = useUser();
-  const auth = useAuth();
+// Mock user data for local state
+const mockUser = {
+  displayName: 'Jane Doe',
+  email: 'jane.doe@example.com',
+  photoURL: 'https://picsum.photos/seed/user/100/100',
+};
 
-  const handleSignIn = async () => {
-    if (!auth) return;
-    const provider = new GoogleAuthProvider();
-    try {
-      await signInWithPopup(auth, provider);
-    } catch (error) {
-      console.error('Error signing in with Google', error);
-    }
+// A simple hook to manage local auth state
+const useLocalUser = () => {
+  const [user, setUser] = useState<typeof mockUser | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const signIn = () => {
+    setIsLoading(true);
+    setTimeout(() => {
+      setUser(mockUser);
+      setIsLoading(false);
+    }, 500); // Simulate network delay
   };
 
-  const handleSignOut = async () => {
-    if (!auth) return;
-    try {
-      await signOut(auth);
-    } catch (error) {
-      console.error('Error signing out', error);
-    }
+  const signOut = () => {
+    setUser(null);
+  };
+
+  return { user, isLoading, signIn, signOut };
+};
+
+
+export function UserMenu() {
+  const { user, isLoading, signIn, signOut } = useLocalUser();
+
+  const handleSignIn = () => {
+    signIn();
+  };
+
+  const handleSignOut = () => {
+    signOut();
   };
 
   if (isLoading) {
@@ -61,7 +72,7 @@ export function UserMenu() {
           <Avatar className="h-8 w-8">
             <AvatarImage src={user.photoURL || undefined} alt={user.displayName || 'User'} />
             <AvatarFallback>
-              {user.displayName ? user.displayName[0] : <UserIcon />}
+              {user.displayName ? user.displayName.charAt(0) : <UserIcon />}
             </AvatarFallback>
           </Avatar>
         </Button>

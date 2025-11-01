@@ -16,8 +16,10 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Loader2, BookHeart, Info, CheckCircle } from "lucide-react";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { useUser, useFirestore, useCollection } from "@/firebase";
-import { collection, query, orderBy } from "firebase/firestore";
+
+// Mock user data and state management for local development
+const mockUser = { uid: 'local-user-123', displayName: 'Jane Doe' };
+const useUser = () => ({ user: mockUser, isLoading: false }); // Always logged in for this component's context
 
 function SubmitButton() {
   const { pending } = useFormStatus();
@@ -31,14 +33,8 @@ function SubmitButton() {
 
 export function MemoryJournal() {
   const { user } = useUser();
-  const firestore = useFirestore();
-
-  const memoriesCollection = user && firestore
-    ? collection(firestore, `users/${user.uid}/memories`)
-    : null;
-
-  const memoriesQuery = memoriesCollection ? query(memoriesCollection, orderBy("createdAt", "desc")) : null;
-  const { data: memories, isLoading } = useCollection(memoriesQuery);
+  const [memories, setMemories] = useState<any[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   const initialState = { message: "", errors: {}, data: null };
   const [state, dispatch] = useActionState(saveMemoryAction, initialState);
@@ -46,7 +42,20 @@ export function MemoryJournal() {
   const [formKey, setFormKey] = useState(Date.now());
   
   useEffect(() => {
-    if (state.message.startsWith("Successfully")) {
+    // Simulate fetching memories
+    setTimeout(() => {
+      setMemories([
+        { id: '1', placeName: 'Café Aranya, Goa', notes: 'for dinner' },
+        { id: '2', placeName: 'India Gate', notes: 'Evening walk' }
+      ]);
+      setIsLoading(false);
+    }, 1000);
+  }, []);
+
+  useEffect(() => {
+    if (state.message.startsWith("Successfully") && state.data) {
+      // Add new memory to local state
+      setMemories(prevMemories => [{ id: Date.now().toString(), ...state.data }, ...prevMemories]);
       // Reset form on success
       setFormKey(Date.now());
     }

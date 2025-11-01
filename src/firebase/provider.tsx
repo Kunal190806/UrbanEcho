@@ -16,9 +16,7 @@ import {
 import {
   getAuth,
   connectAuthEmulator,
-  onAuthStateChanged,
   type Auth,
-  type User,
 } from "firebase/auth";
 
 import firebaseConfig from "./config";
@@ -27,8 +25,6 @@ type FirebaseContextType = {
   app: FirebaseApp | null;
   firestore: Firestore | null;
   auth: Auth | null;
-  user: User | null;
-  isLoading: boolean;
 };
 
 const FirebaseContext = createContext<FirebaseContextType | undefined>(
@@ -39,8 +35,6 @@ export function FirebaseProvider({ children }: { children: ReactNode }) {
   const [app, setApp] = useState<FirebaseApp | null>(null);
   const [firestore, setFirestore] = useState<Firestore | null>(null);
   const [auth, setAuth] = useState<Auth | null>(null);
-  const [user, setUser] = useState<User | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const app =
@@ -59,22 +53,9 @@ export function FirebaseProvider({ children }: { children: ReactNode }) {
     setFirestore(firestoreInstance);
     setAuth(authInstance);
 
-    const unsubscribe = onAuthStateChanged(
-      authInstance,
-      (user) => {
-        setUser(user);
-        setIsLoading(false);
-      },
-      (error) => {
-        console.error("Auth state change error:", error);
-        setIsLoading(false);
-      }
-    );
-
-    return () => unsubscribe();
   }, []);
 
-  const value = { app, firestore, auth, user, isLoading };
+  const value = { app, firestore, auth };
 
   return (
     <FirebaseContext.Provider value={value}>
@@ -94,10 +75,7 @@ export const useFirebase = () => {
 export const useFirebaseApp = () => useFirebase().app;
 export const useFirestore = () => useFirebase().firestore;
 export const useAuth = () => useFirebase().auth;
-export const useUser = () => {
-    const { user, isLoading } = useFirebase();
-    return { user, isLoading };
-};
+
 
 export const useCollection = (query: any) => {
   const [data, setData] = useState<any[] | null>(null);

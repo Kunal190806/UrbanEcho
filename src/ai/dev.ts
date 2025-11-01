@@ -1,1 +1,6 @@
-// Flows will be imported for their side effects in this file.
+import { config } from 'dotenv';
+config();
+
+import '@/ai/flows/personalized-route-planning.ts';
+import '@/ai/flows/suggest-new-poi.ts';
+import '@/ai/flows/sustainable-route-suggestions.ts';

@@ -13,7 +13,7 @@ export default function Home() {
       <div className="flex-1 space-y-4 p-4 md:p-6">
         <div className="flex items-center justify-between">
           <h1 className="flex-1 text-xl font-semibold font-headline md:text-2xl">
-            Smart City Navigator
+            Smart Living + Smart Moving
           </h1>
         </div>
         <div className="relative h-64 w-full overflow-hidden rounded-xl shadow-lg md:h-[400px]">
@@ -33,7 +33,7 @@ export default function Home() {
           <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-background/20 to-transparent" />
           <div className="absolute bottom-4 left-4 md:bottom-6 md:left-6">
             <h2 className="text-2xl md:text-4xl font-bold text-primary-foreground font-headline shadow-2xl">
-              Travel Smarter, Cleaner, and More Sustainably
+              A new standard for sustainable urban living.
             </h2>
           </div>
         </div>

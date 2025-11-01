@@ -13,8 +13,8 @@ import { UserMenu } from '@/components/auth/user-menu';
 import { ThemeToggle } from '@/components/theme-toggle';
 
 export const metadata: Metadata = {
-  title: 'UrbanEcho: Smart City Navigator',
-  description: 'Your Smart City Memory Companion.',
+  title: 'UrbanEcho: Smart City Companion',
+  description: 'An AI-powered urban lifestyle and sustainability companion that helps citizens make smarter choices in both how they live and how they move.',
 };
 
 export default function RootLayout({

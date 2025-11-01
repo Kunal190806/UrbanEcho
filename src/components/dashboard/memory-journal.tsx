@@ -34,9 +34,9 @@ function SubmitButton() {
 type SaveMemoryState = {
   message: string;
   errors?: {
-    command?: string[] | undefined;
-    userId?: string[] | undefined;
-  };
+    command?: string[];
+    userId?: string[];
+  } | null;
   data?: {
     placeName: string;
     notes?: string;
@@ -48,7 +48,7 @@ export function MemoryJournal() {
   const [memories, setMemories] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  const initialState: SaveMemoryState = { message: "", errors: {}, data: null };
+  const initialState: SaveMemoryState = { message: "", errors: null, data: null };
   const [state, dispatch] = useActionState(saveMemoryAction, initialState);
 
   const [formKey, setFormKey] = useState(Date.now());
@@ -113,7 +113,7 @@ export function MemoryJournal() {
                 placeholder='e.g., "Save Cafe Flora for brunch"'
                 required
               />
-              {state.errors?.command && (
+              {state.errors && 'command' in state.errors && state.errors.command && (
                 <p className="text-sm font-medium text-destructive">
                   {state.errors.command[0]}
                 </p>

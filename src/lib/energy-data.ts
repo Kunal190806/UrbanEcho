@@ -37,12 +37,12 @@ export const energyInsights: EnergyInsight[] = [
         description: "Your AC used 23% more energy today than average. Consider setting the temperature to 24°C."
     },
     {
-        title: "AI Power Tip",
-        description: "Your power consumption is higher between 6–9 PM. Consider shifting washing machine usage to daytime."
+        title: "Upgrade Insight",
+        description: "Your washing machine consumes 1.8x the city average. Switching to a 5-star inverter model could save you over ₹2,000 a year."
     },
     {
-        title: "Upgrade Insight",
-        description: "Switching to an inverter refrigerator can reduce your power cost by ₹300/month."
+        title: "AI Power Tip",
+        description: "Using LED bulbs instead of CFLs for your most-used lights could reduce lighting costs by up to ₹250/month."
     }
 ];
 

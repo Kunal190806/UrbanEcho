@@ -10,6 +10,7 @@ import { FirebaseProvider } from '@/firebase/provider';
 import { UserMenu } from '@/components/auth/user-menu';
 import { TravelPreferenceModal } from '@/components/dashboard/travel-preference-modal';
 import { SmartWidgets } from '@/components/dashboard/smart-widgets';
+import { ThemeToggle } from '@/components/theme-toggle';
 
 
 export default function Home() {
@@ -68,6 +69,7 @@ export default function Home() {
               <h1 className="flex-1 text-xl font-semibold font-headline md:text-2xl">
                 Smart City Navigator
               </h1>
+              <ThemeToggle />
               <UserMenu />
             </header>
             <main className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-6">

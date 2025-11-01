@@ -9,14 +9,13 @@ import {
 import { RoutePlanner } from "@/components/dashboard/route-planner";
 import { PoiRecommender } from "@/components/dashboard/poi-recommender";
 import { SustainableRoutes } from "@/components/dashboard/sustainable-routes";
-import { Map, Lightbulb, Leaf, BookHeart, Siren } from "lucide-react";
+import { Map, Lightbulb, Leaf, BookHeart } from "lucide-react";
 import { MemoryJournal } from "./memory-journal";
-import { Safety } from "./safety";
 
 export function DashboardTabs() {
   return (
     <Tabs defaultValue="planner" className="w-full">
-      <TabsList className="grid w-full grid-cols-5 h-12">
+      <TabsList className="grid w-full grid-cols-4 h-12">
         <TabsTrigger value="planner" className="text-sm">
           <Map className="mr-2 h-4 w-4" />
           Route Planner
@@ -33,10 +32,6 @@ export function DashboardTabs() {
           <BookHeart className="mr-2 h-4 w-4" />
           Journal
         </TabsTrigger>
-        <TabsTrigger value="safety" className="text-sm">
-          <Siren className="mr-2 h-4 w-4" />
-          Safety
-        </TabsTrigger>
       </TabsList>
       <TabsContent value="planner" className="mt-6">
         <RoutePlanner />
@@ -49,9 +44,6 @@ export function DashboardTabs() {
       </TabsContent>
       <TabsContent value="journal" className="mt-6">
         <MemoryJournal />
-      </TabsContent>
-      <TabsContent value="safety" className="mt-6">
-        <Safety />
       </TabsContent>
     </Tabs>
   );

@@ -365,7 +365,7 @@ export default function EnergyPage() {
                                         <p className="text-xs text-muted-foreground">{schedule.time}</p>
                                     </div>
                                     <Switch checked={schedule.enabled} />
-                                d_v>
+                                </div>
                             ))}
                             <Button variant="outline" className="w-full">
                                 <PlusCircle className="mr-2 h-4 w-4" />

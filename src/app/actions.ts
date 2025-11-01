@@ -41,7 +41,7 @@ export async function getPersonalizedRoute(prevState: any, formData: FormData) {
     const result = await personalizedRoutePlan(
       validatedFields.data as RoutePlanInput
     );
-    return { message: "success", data: result, errors: {} };
+    return { message: "success", data: result, errors: {}, input: validatedFields.data };
   } catch (error) {
     console.error(error);
     return {

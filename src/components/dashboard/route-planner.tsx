@@ -15,7 +15,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Loader2, Car, TramFront, Bus, Footprints, Zap } from "lucide-react";
+import { Loader2, Car, TramFront, Bus, Footprints, Zap, ExternalLink } from "lucide-react";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
 const transportOptions = [
@@ -39,6 +39,17 @@ function SubmitButton() {
 export function RoutePlanner() {
   const initialState = { message: "", errors: {}, data: null };
   const [state, dispatch] = useActionState(getPersonalizedRoute, initialState);
+
+  const startLocation = state.input?.startLocation;
+  const endLocation = state.input?.endLocation;
+
+  const googleMapsUrl =
+    startLocation && endLocation
+      ? `https://www.google.com/maps/dir/?api=1&origin=${encodeURIComponent(
+          startLocation
+        )}&destination=${encodeURIComponent(endLocation)}`
+      : "";
+
 
   return (
     <Card>
@@ -116,7 +127,15 @@ export function RoutePlanner() {
                 Your Personalized Route
               </AlertTitle>
               <AlertDescription>
-                <p className="mt-2 text-base whitespace-pre-line">{state.data.plan}</p>
+                <div className="mt-2 text-base whitespace-pre-line">{state.data.plan}</div>
+                {googleMapsUrl && (
+                  <Button asChild variant="outline" className="mt-4">
+                    <a href={googleMapsUrl} target="_blank" rel="noopener noreferrer">
+                      <ExternalLink className="mr-2 h-4 w-4" />
+                      View on Google Maps
+                    </a>
+                  </Button>
+                )}
               </AlertDescription>
             </Alert>
           )}

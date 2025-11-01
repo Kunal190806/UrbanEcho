@@ -116,7 +116,7 @@ export function RoutePlanner() {
                 Your Personalized Route
               </AlertTitle>
               <AlertDescription>
-                <p className="mt-2 text-base">{state.data.plan}</p>
+                <p className="mt-2 text-base whitespace-pre-line">{state.data.plan}</p>
               </AlertDescription>
             </Alert>
           )}

@@ -54,7 +54,7 @@ const personalizedRoutePlanFlow = ai.defineFlow(
       Destination: {{{endLocation}}}
       Preferred Modes: {{#each preferredModes}}{{{this}}}{{#unless @last}}, {{/unless}}{{/each}}
       
-      Generate a concise, step-by-step route plan in a list of bullet points that is easy to follow. Be creative and consider the best combination of the preferred modes.
+      Generate a concise, step-by-step route plan in a list of bullet points that is easy to follow. Each step should be on a new line.
       
       Route Plan:`,
     });

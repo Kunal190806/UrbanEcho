@@ -75,35 +75,3 @@ export const useFirebase = () => {
 export const useFirebaseApp = () => useFirebase().app;
 export const useFirestore = () => useFirebase().firestore;
 export const useAuth = () => useFirebase().auth;
-
-
-export const useCollection = (query: any) => {
-  const [data, setData] = useState<any[] | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<any | null>(null);
-  const firestore = useFirestore();
-
-  useEffect(() => {
-    if (!firestore || !query) {
-        setData([]);
-        setIsLoading(false);
-        return;
-    };
-    
-    const { onSnapshot } = require("firebase/firestore");
-    
-    const unsubscribe = onSnapshot(query, (snapshot) => {
-      const docs = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-      setData(docs);
-      setIsLoading(false);
-    }, (err) => {
-      setError(err);
-      setIsLoading(false);
-      console.error(err);
-    });
-
-    return () => unsubscribe();
-  }, [firestore, query]);
-
-  return { data, isLoading, error };
-};

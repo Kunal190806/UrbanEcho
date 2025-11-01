@@ -48,22 +48,22 @@ const personalizedRoutePlanFlow = ai.defineFlow(
       name: 'personalizedRoutePlanPrompt',
       input: {schema: RoutePlanInputSchema},
       output: {schema: RoutePlanOutputSchema},
-      prompt: `You are an intelligent route planning assistant for a smart city. Your goal is to create a personalized route plan based on the user's starting location, destination, and preferred modes of transport.
+      prompt: `You are an intelligent route planning assistant for a smart city. Your goal is to create a high-level, generalized route plan based on the user's starting location, destination, and preferred modes of transport.
+
+      Do NOT invent specific bus numbers, metro line colors, or any other fictional details. The plan should be a logical sequence of travel stages.
     
       Start Location: {{{startLocation}}}
       Destination: {{{endLocation}}}
       Preferred Modes: {{#each preferredModes}}{{{this}}}{{#unless @last}}, {{/unless}}{{/each}}
       
-      Generate a concise, step-by-step route plan that is easy to follow. Each step must be on a new line, separated by a newline character.
-      If the route involves a bus, include a realistic but fictional bus number (e.g., "Bus 101").
-      If the route involves a metro, include the line color or name (e.g., "Blue Line").
+      Generate a concise, step-by-step route plan that is easy to follow. Each step must be on a new line.
       
       Example:
-      - Walk 5 minutes to Central Bus Stop.
-      - Take Bus 42B towards Downtown.
-      - Alight at City Hall Metro Station.
-      - Take the Metro's Red Line (towards Northgate) for 3 stops.
-      - Exit at Grand Park Station and walk 2 minutes to your destination.
+      - Walk to the nearest bus stop.
+      - Take a bus towards the city center.
+      - Transfer to the metro system.
+      - Take the metro for a few stops towards your destination's district.
+      - Walk from the metro station to your final destination.
 
       Route Plan:`,
     });

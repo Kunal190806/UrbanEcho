@@ -37,7 +37,7 @@ function SubmitButton() {
 }
 
 export function RoutePlanner() {
-  const initialState = { message: "", errors: {}, data: null };
+  const initialState = { message: "", errors: {}, data: null, input: null };
   const [state, dispatch] = useActionState(getPersonalizedRoute, initialState);
 
   const startLocation = state.input?.startLocation;
@@ -123,11 +123,11 @@ export function RoutePlanner() {
 
           {state.message === "success" && state.data && (
             <Alert className="bg-card">
-              <AlertTitle className="font-semibold">
+              <AlertTitle className="font-semibold text-lg">
                 Your Personalized Route
               </AlertTitle>
               <AlertDescription>
-                <div className="mt-2 text-base whitespace-pre-line">{state.data.plan}</div>
+                <div className="mt-4 text-base whitespace-pre-line">{state.data.plan}</div>
                 {googleMapsUrl && (
                   <Button asChild variant="outline" className="mt-4">
                     <a href={googleMapsUrl} target="_blank" rel="noopener noreferrer">

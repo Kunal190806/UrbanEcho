@@ -36,7 +36,7 @@ type SaveMemoryState = {
   errors?: {
     command?: string[];
     userId?: string[];
-  } | null;
+  } | {};
   data?: {
     placeName: string;
     notes?: string;
@@ -48,7 +48,7 @@ export function MemoryJournal() {
   const [memories, setMemories] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  const initialState: SaveMemoryState = { message: "", errors: null, data: null };
+  const initialState: SaveMemoryState = { message: "", errors: {}, data: null };
   const [state, dispatch] = useActionState(saveMemoryAction, initialState);
 
   const [formKey, setFormKey] = useState(Date.now());

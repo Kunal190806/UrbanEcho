@@ -1,3 +1,4 @@
+
 "use client";
 
 import Image from "next/image";
@@ -18,7 +19,6 @@ import { Badge } from "@/components/ui/badge";
 import {
   Zap,
   Flame,
-  Cloudy,
   Train,
   Wind,
   ParkingCircle,
@@ -31,6 +31,7 @@ import {
   smartCityData,
 } from "@/lib/data";
 import { useTravelPreference } from "@/hooks/use-travel-preference";
+import { HomeEnergyWidget } from "./home-energy-widget";
 
 const MetroWidget = () => {
   const metroImage = PlaceHolderImages.find((img) => img.id === "metro-widget");
@@ -193,6 +194,9 @@ export function SmartWidgets() {
         className="w-full"
       >
         <CarouselContent>
+          <CarouselItem className="md:basis-1/2 lg:basis-1/3">
+            <HomeEnergyWidget />
+          </CarouselItem>
           <CarouselItem className="md:basis-1/2 lg:basis-1/3">
             <CityPulseWidget />
           </CarouselItem>

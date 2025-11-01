@@ -47,6 +47,12 @@
       "description": "A modern living room with smart home devices.",
       "imageUrl": "https://images.unsplash.com/photo-1617103994363-c74238b3b3a2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxzbWFydCUyMGhvbWUlMjBsaXZpbmclMjByb29tfGVufDB8fHx8MTc2MjA5OTU4OXww&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "smart home"
+    },
+    {
+      "id": "energy-widget",
+      "description": "A glowing lightbulb symbolizing energy and ideas.",
+      "imageUrl": "https://images.unsplash.com/photo-1505373877841-8d25f7d46678?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxlbGVjdHJpY2l0eSUyMGdyaWR8ZW58MHx8fHwxNzYyMTg0Mjg4fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "electricity grid"
     }
   ]
 }

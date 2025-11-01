@@ -1,4 +1,5 @@
 
+
 export type EnergyAppliance = {
   name: string;
   energyRating: 1 | 2 | 3 | 4 | 5;
@@ -77,4 +78,32 @@ export type WeeklyImpact = {
 export const weeklyImpact: WeeklyImpact = {
     co2SavedKg: 12.5,
     ecoScore: 450,
+};
+
+export type EnergyWidgetData = {
+  currentUsage: number;
+  predictedUsage: number;
+  messages: {
+    type: "alert" | "tip" | "motivation";
+    text: string;
+  }[];
+};
+
+export const energyWidgetData: EnergyWidgetData = {
+  currentUsage: 8.7,
+  predictedUsage: 19.2,
+  messages: [
+    {
+      type: "alert",
+      text: "High consumption in living room — check AC settings.",
+    },
+    {
+      type: "tip",
+      text: "Unplug idle devices to save energy.",
+    },
+    {
+      type: "motivation",
+      text: "You’re 15% more efficient today — great job saving power!",
+    },
+  ],
 };

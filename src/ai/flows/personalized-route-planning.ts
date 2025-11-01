@@ -54,8 +54,17 @@ const personalizedRoutePlanFlow = ai.defineFlow(
       Destination: {{{endLocation}}}
       Preferred Modes: {{#each preferredModes}}{{{this}}}{{#unless @last}}, {{/unless}}{{/each}}
       
-      Generate a concise, step-by-step route plan in a list of bullet points that is easy to follow. Each step should be on a new line, separated by a newline character.
+      Generate a concise, step-by-step route plan that is easy to follow. Each step must be on a new line, separated by a newline character.
+      If the route involves a bus, include a realistic but fictional bus number (e.g., "Bus 101").
+      If the route involves a metro, include the line color or name (e.g., "Blue Line").
       
+      Example:
+      - Walk 5 minutes to Central Bus Stop.
+      - Take Bus 42B towards Downtown.
+      - Alight at City Hall Metro Station.
+      - Take the Metro's Red Line (towards Northgate) for 3 stops.
+      - Exit at Grand Park Station and walk 2 minutes to your destination.
+
       Route Plan:`,
     });
     const {output} = await prompt(input);

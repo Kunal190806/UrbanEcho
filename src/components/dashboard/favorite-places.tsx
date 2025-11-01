@@ -18,7 +18,7 @@ export function FavoritePlaces() {
             className={`group flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium transition-colors ${
               activeItem === place.name
                 ? "bg-primary text-primary-foreground font-semibold"
-                : "text-foreground hover:bg-accent/50 hover:text-accent-foreground"
+                : "text-foreground hover:bg-accent hover:text-accent-foreground"
             }`}
           >
             <place.icon className={`h-5 w-5 ${activeItem !== place.name && "text-muted-foreground group-hover:text-accent-foreground"}`} />

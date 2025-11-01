@@ -1,9 +1,12 @@
+"use client";
+
 import Link from "next/link";
 import { favoritePlaces } from "@/lib/data";
 import { Separator } from "@/components/ui/separator";
+import { useState } from "react";
 
 export function FavoritePlaces() {
-  const activeItem = "Home"; // This would be dynamic in a real app
+  const [activeItem, setActiveItem] = useState("Home");
 
   return (
     <div className="space-y-2">
@@ -15,6 +18,10 @@ export function FavoritePlaces() {
           <Link
             key={place.name}
             href="#"
+            onClick={(e) => {
+              e.preventDefault();
+              setActiveItem(place.name);
+            }}
             className={`group flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium transition-colors ${
               activeItem === place.name
                 ? "bg-primary text-primary-foreground font-semibold"

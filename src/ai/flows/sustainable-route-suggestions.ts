@@ -34,21 +34,11 @@ export type SustainableRouteSuggestionsOutput = z.infer<typeof SustainableRouteS
 export async function suggestSustainableRoutes(
   input: SustainableRouteSuggestionsInput
 ): Promise<SustainableRouteSuggestionsOutput> {
-  return sustainableRouteSuggestionsFlow(input);
-}
-
-const sustainableRouteSuggestionsFlow = ai.defineFlow(
-  {
-    name: 'sustainableRouteSuggestionsFlow',
-    inputSchema: SustainableRouteSuggestionsInputSchema,
-    outputSchema: SustainableRouteSuggestionsOutputSchema,
-  },
-  async input => {
-    const prompt = ai.definePrompt({
-      name: 'sustainableRouteSuggestionsPrompt',
-      input: {schema: SustainableRouteSuggestionsInputSchema},
-      output: {schema: SustainableRouteSuggestionsOutputSchema},
-      prompt: `You are an expert in sustainable transportation and route planning. Given a starting location, a destination location, and a list of available transport modes, suggest several routes that minimize carbon footprint.
+  const prompt = ai.definePrompt({
+    name: 'sustainableRouteSuggestionsPrompt',
+    input: {schema: SustainableRouteSuggestionsInputSchema},
+    output: {schema: SustainableRouteSuggestionsOutputSchema},
+    prompt: `You are an expert in sustainable transportation and route planning. Given a starting location, a destination location, and a list of available transport modes, suggest several routes that minimize carbon footprint.
     
     Starting Location: {{{startLocation}}}
     Destination Location: {{{endLocation}}}
@@ -63,8 +53,7 @@ const sustainableRouteSuggestionsFlow = ai.defineFlow(
     
     Present the routes in a JSON format as described by the SustainableRouteSuggestionsOutputSchema schema. Focus on suggesting routes that use public transport, walking, cycling or EVs.
     `,
-    });
-    const {output} = await prompt(input);
-    return output!;
-  }
-);
+  });
+  const {output} = await prompt(input);
+  return output!;
+}

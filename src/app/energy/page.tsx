@@ -1,38 +1,52 @@
+'use client';
 
-"use client";
-
+import { useActionState, useEffect } from 'react';
+import { useFormStatus } from 'react-dom';
+import { getAIEnergyTips } from '@/app/actions';
 import {
   Card,
   CardContent,
   CardHeader,
   CardTitle,
   CardDescription,
-} from "@/components/ui/card";
+} from '@/components/ui/card';
 import {
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
   ChartConfig,
-} from "@/components/ui/chart";
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Cell } from "recharts";
-import { Badge } from "@/components/ui/badge";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+} from '@/components/ui/chart';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Cell } from 'recharts';
+import { Badge } from '@/components/ui/badge';
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import {
   energyAppliances,
   dailyUsageData,
-  energyInsights,
   ecoChallenges,
   weeklyImpact,
-} from "@/lib/energy-data";
-import { Star, Zap, Power, PowerOff, Lightbulb, AlertTriangle, ShieldCheck, CheckCircle, Trophy, Sparkles } from "lucide-react";
-import Image from "next/image";
-import { PlaceHolderImages } from "@/lib/placeholder-images";
-import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
+} from '@/lib/energy-data';
+import {
+  Star,
+  Zap,
+  Power,
+  PowerOff,
+  Lightbulb,
+  AlertTriangle,
+  ShieldCheck,
+  CheckCircle,
+  Trophy,
+  Sparkles,
+  Loader2,
+  Info,
+} from 'lucide-react';
+import Image from 'next/image';
+import { PlaceHolderImages } from '@/lib/placeholder-images';
+import { cn } from '@/lib/utils';
+import { Button } from '@/components/ui/button';
 
 const chartConfig = {
   usage: {
-    label: "Usage (kWh)",
+    label: 'Usage (kWh)',
   },
 } satisfies ChartConfig;
 
@@ -42,26 +56,44 @@ const chartData = dailyUsageData.map((day, index) => ({
 }));
 
 const getRatingColor = (rating: number) => {
-  if (rating >= 4) return "text-green-500";
-  if (rating >= 3) return "text-yellow-500";
-  return "text-red-500";
+  if (rating >= 4) return 'text-green-500';
+  if (rating >= 3) return 'text-yellow-500';
+  return 'text-red-500';
 };
 
 const getStatusIcon = (status: string) => {
   switch (status) {
-    case "On":
+    case 'On':
       return <Power className="h-4 w-4 text-green-500" />;
-    case "Off":
+    case 'Off':
       return <PowerOff className="h-4 w-4 text-muted-foreground" />;
-    case "Standby":
+    case 'Standby':
       return <Zap className="h-4 w-4 text-yellow-500" />;
     default:
       return null;
   }
 };
 
+function AITipsButton() {
+  const { pending } = useFormStatus();
+  return (
+    <Button type="submit" className="w-full mt-4" disabled={pending}>
+      {pending ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Sparkles className="mr-2 h-4 w-4" />}
+      Generate Tips
+    </Button>
+  );
+}
+
+
 export default function EnergyPage() {
-  const heroImage = PlaceHolderImages.find((img) => img.id === "smart-home");
+  const heroImage = PlaceHolderImages.find((img) => img.id === 'smart-home');
+
+  const initialState = { message: '', errors: {}, data: null };
+  const [state, dispatch] = useActionState(getAIEnergyTips, initialState);
+
+  const usageDataString = JSON.stringify(dailyUsageData);
+  const appliancesString = JSON.stringify(energyAppliances);
+
 
   return (
     <div className="flex-1 space-y-4 p-4 md:p-6">
@@ -186,18 +218,45 @@ export default function EnergyPage() {
                         <Sparkles className="text-primary" />
                         AI Energy Tips
                     </CardTitle>
+                    <CardDescription>
+                        Get personalized tips based on your usage data.
+                    </CardDescription>
                 </CardHeader>
-                <CardContent className="space-y-4">
-                    {energyInsights.map((insight, index) => {
-                        const Icon = insight.title.includes("Alert") ? AlertTriangle : Lightbulb;
-                        return (
-                            <Alert key={index} variant={insight.title.includes("Alert") ? "destructive" : "default"} className="bg-card/50">
-                                <Icon className="h-4 w-4" />
-                                <AlertTitle>{insight.title}</AlertTitle>
-                                <AlertDescription>{insight.description}</AlertDescription>
-                            </Alert>
-                        )
-                    })}
+                <CardContent>
+                    <form action={dispatch}>
+                        <input type="hidden" name="usageData" value={usageDataString} />
+                        <input type="hidden" name="appliances" value={appliancesString} />
+                        
+                        {state.message === "success" && state.data && (
+                            <div className="space-y-4">
+                                {state.data.tips.map((tip: string, index: number) => (
+                                    <Alert key={index} className="bg-card/50">
+                                        <Lightbulb className="h-4 w-4" />
+                                        <AlertTitle>Tip #{index + 1}</AlertTitle>
+                                        <AlertDescription>{tip}</AlertDescription>
+                                    </Alert>
+                                ))}
+                            </div>
+                        )}
+
+                        {state.message && state.message !== "success" && (
+                          <Alert variant="destructive">
+                            <Info className="h-4 w-4" />
+                            <AlertTitle>Error</AlertTitle>
+                            <AlertDescription>{state.message}</AlertDescription>
+                          </Alert>
+                        )}
+
+                        {!state.data && (
+                            <div className="flex flex-col items-center justify-center rounded-lg border-2 border-dashed border-muted p-8 text-center">
+                                <Lightbulb className="h-10 w-10 text-muted-foreground" />
+                                <p className="mt-4 text-sm font-medium text-muted-foreground">
+                                    Click the button to generate personalized energy-saving tips from our AI.
+                                </p>
+                            </div>
+                        )}
+                        <AITipsButton />
+                    </form>
                 </CardContent>
             </Card>
         </div>

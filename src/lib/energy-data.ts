@@ -26,26 +26,6 @@ export const dailyUsageData = [
 ];
 
 
-export type EnergyInsight = {
-    title: string;
-    description: string;
-};
-
-export const energyInsights: EnergyInsight[] = [
-    {
-        title: "High Consumption Alert",
-        description: "Your AC used 23% more energy today than average. Consider setting the temperature to 24°C."
-    },
-    {
-        title: "Upgrade Insight",
-        description: "Your washing machine consumes 1.8x the city average. Switching to a 5-star inverter model could save you over ₹2,000 a year."
-    },
-    {
-        title: "Smart Ecosystem Tip",
-        description: "Driving an EV? UrbanEcho can sync with your home charger to recommend off-peak charging times, saving you money and supporting the grid."
-    }
-];
-
 export type EcoChallenge = {
     task: string;
     reward: string;
@@ -107,4 +87,3 @@ export const energyWidgetData: EnergyWidgetData = {
     },
   ],
 };
-

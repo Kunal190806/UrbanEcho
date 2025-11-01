@@ -29,6 +29,18 @@
       "description": "A stylized map of a city showing streets and districts.",
       "imageUrl": "https://images.unsplash.com/photo-1717700299581-c2fc3fad4ee8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxjaXR5JTIwbWFwfGVufDB8fHx8MTc2MTkxMTUzM3ww&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "city map"
+    },
+    {
+      "id": "metro-widget",
+      "description": "A modern metro train arriving at a station platform.",
+      "imageUrl": "https://images.unsplash.com/photo-1610773939790-89cf2e8dfb06?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxtZXRybyUyMHRyYWlufGVufDB8fHx8MTc2MjAyMTc5Nnww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "metro train"
+    },
+    {
+      "id": "ev-widget",
+      "description": "An electric vehicle charging at a modern charging station.",
+      "imageUrl": "https://images.unsplash.com/photo-1671785120538-c24cbe823ccc?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxldiUyMGNoYXJnaW5nfGVufDB8fHx8MTc2MjAyMTc5Nnww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "ev charging"
     }
   ]
 }

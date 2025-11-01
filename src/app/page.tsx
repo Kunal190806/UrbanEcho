@@ -7,6 +7,7 @@ import { SmartCityStatus } from '@/components/dashboard/smart-city-status';
 import { DashboardTabs } from '@/components/dashboard/dashboard-tabs';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
+import { SmartWidgets } from '@/components/dashboard/smart-widgets';
 
 export default function Home() {
   const mapImage = PlaceHolderImages.find((img) => img.id === 'map');
@@ -87,6 +88,7 @@ export default function Home() {
                  <h2 className="text-2xl md:text-4xl font-bold text-primary-foreground font-headline shadow-2xl">Travel Smarter, Cleaner, and More Sustainably</h2>
               </div>
             </div>
+            <SmartWidgets />
             <DashboardTabs />
           </main>
         </div>

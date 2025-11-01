@@ -21,11 +21,14 @@ import {
   energyAppliances,
   dailyUsageData,
   energyInsights,
+  ecoChallenges,
+  weeklyImpact,
 } from "@/lib/energy-data";
-import { Star, Zap, Power, PowerOff, Lightbulb, AlertTriangle } from "lucide-react";
+import { Star, Zap, Power, PowerOff, Lightbulb, AlertTriangle, ShieldCheck, CheckCircle, Trophy, Sparkles } from "lucide-react";
 import Image from "next/image";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
 import { cn } from "@/lib/utils";
+import { Button } from "../ui/button";
 
 const chartConfig = {
   usage: {
@@ -85,6 +88,58 @@ export function HomeEnergy() {
         </div>
       </div>
       
+      <div className="grid gap-6 lg:grid-cols-2">
+        <Card>
+            <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                    <Trophy className="text-yellow-500" />
+                    Daily Eco-Challenges
+                </CardTitle>
+                <CardDescription>Complete simple tasks to save energy and earn points.</CardDescription>
+            </CardHeader>
+            <CardContent>
+                <ul className="space-y-4">
+                    {ecoChallenges.map((challenge, index) => (
+                        <li key={index} className="flex items-center justify-between rounded-lg border p-4">
+                            <div className="flex items-center gap-4">
+                                <ShieldCheck className={cn("h-6 w-6", challenge.completed ? "text-green-500" : "text-muted-foreground")} />
+                                <div>
+                                    <p className={cn("font-medium", challenge.completed && "line-through text-muted-foreground")}>{challenge.task}</p>
+                                    <p className="text-xs text-muted-foreground">{challenge.reward}</p>
+                                </div>
+                            </div>
+                            {!challenge.completed && (
+                                <Button variant="outline" size="sm">
+                                    <CheckCircle className="mr-2 h-4 w-4" />
+                                    Done
+                                </Button>
+                            )}
+                        </li>
+                    ))}
+                </ul>
+            </CardContent>
+        </Card>
+
+        <Card>
+            <CardHeader>
+                <CardTitle>Your Weekly Impact</CardTitle>
+                <CardDescription>See the difference you're making.</CardDescription>
+            </CardHeader>
+            <CardContent className="grid grid-cols-2 gap-4 text-center">
+                <div className="rounded-lg bg-green-100/50 dark:bg-green-900/20 p-4">
+                    <p className="text-sm font-medium text-green-600 dark:text-green-400">CO₂ Saved</p>
+                    <p className="text-3xl font-bold text-green-700 dark:text-green-300">{weeklyImpact.co2SavedKg}</p>
+                    <p className="text-xs text-muted-foreground">kilograms</p>
+                </div>
+                <div className="rounded-lg bg-blue-100/50 dark:bg-blue-900/20 p-4">
+                    <p className="text-sm font-medium text-blue-600 dark:text-blue-400">Eco-Score</p>
+                    <p className="text-3xl font-bold text-blue-700 dark:text-blue-300">{weeklyImpact.ecoScore}</p>
+                    <p className="text-xs text-muted-foreground">points this week</p>
+                </div>
+            </CardContent>
+        </Card>
+      </div>
+
       <div className="grid gap-6 lg:grid-cols-5">
         <Card className="lg:col-span-3">
           <CardHeader>
@@ -125,16 +180,26 @@ export function HomeEnergy() {
         </Card>
 
         <div className="lg:col-span-2 space-y-6">
-            {energyInsights.map((insight, index) => {
-                const Icon = insight.title.includes("Alert") ? AlertTriangle : Lightbulb;
-                return (
-                    <Alert key={index} variant={insight.title.includes("Alert") ? "destructive" : "default"} className="bg-card">
-                        <Icon className="h-4 w-4" />
-                        <AlertTitle>{insight.title}</AlertTitle>
-                        <AlertDescription>{insight.description}</AlertDescription>
-                    </Alert>
-                )
-            })}
+            <Card>
+                <CardHeader>
+                    <CardTitle className="flex items-center gap-2">
+                        <Sparkles className="text-primary" />
+                        AI Energy Tips
+                    </CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                    {energyInsights.map((insight, index) => {
+                        const Icon = insight.title.includes("Alert") ? AlertTriangle : Lightbulb;
+                        return (
+                            <Alert key={index} variant={insight.title.includes("Alert") ? "destructive" : "default"} className="bg-card/50">
+                                <Icon className="h-4 w-4" />
+                                <AlertTitle>{insight.title}</AlertTitle>
+                                <AlertDescription>{insight.description}</AlertDescription>
+                            </Alert>
+                        )
+                    })}
+                </CardContent>
+            </Card>
         </div>
 
       </div>

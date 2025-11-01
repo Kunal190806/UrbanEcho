@@ -22,3 +22,8 @@ export const memorySchema = z.object({
   command: z.string().min(1, "Command is required"),
   userId: z.string().min(1, "User ID is required"),
 });
+
+export const energyTipsSchema = z.object({
+  usageData: z.string().min(1, "Usage data is required"),
+  appliances: z.string().min(1, "Appliance data is required"),
+});

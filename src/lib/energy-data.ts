@@ -36,11 +36,45 @@ export const energyInsights: EnergyInsight[] = [
         description: "Your AC used 23% more energy today than average. Consider setting the temperature to 24°C."
     },
     {
-        title: "Upgrade Insight",
-        description: "Switching to an inverter refrigerator can reduce your power cost by ₹300/month."
+        title: "AI Power Tip",
+        description: "Your power consumption is higher between 6–9 PM. Consider shifting washing machine usage to daytime."
     },
     {
-        title: "Behavioral Nudge",
-        description: "Try turning off standby devices between 11 PM – 7 AM to save 6% on your energy bill."
+        title: "Upgrade Insight",
+        description: "Switching to an inverter refrigerator can reduce your power cost by ₹300/month."
     }
 ];
+
+export type EcoChallenge = {
+    task: string;
+    reward: string;
+    completed: boolean;
+};
+
+export const ecoChallenges: EcoChallenge[] = [
+    {
+        task: "Use a fan instead of AC for 1 hour.",
+        reward: "10 Eco-Points",
+        completed: true,
+    },
+    {
+        task: "Switch off all lights when leaving a room today.",
+        reward: "15 Eco-Points",
+        completed: false,
+    },
+    {
+        task: "Unplug 'phantom load' devices before bed.",
+        reward: "20 Eco-Points",
+        completed: false,
+    }
+];
+
+export type WeeklyImpact = {
+    co2SavedKg: number;
+    ecoScore: number;
+};
+
+export const weeklyImpact: WeeklyImpact = {
+    co2SavedKg: 12.5,
+    ecoScore: 450,
+};

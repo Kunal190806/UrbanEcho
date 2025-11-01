@@ -13,6 +13,11 @@ import {
   type SustainableRouteSuggestionsInput,
 } from "@/ai/flows/sustainable-route-suggestions";
 import {
+  getEnergySavingTips,
+  type EnergySavingTipsInput,
+} from "@/ai/flows/energy-saving-tips";
+import {
+  energyTipsSchema,
   memorySchema,
   poiSchema,
   routePlanSchema,
@@ -153,6 +158,33 @@ export async function saveMemoryAction(prevState: any, formData: FormData) {
   } catch (error: any) {
     return {
       message: error.message,
+      errors: {},
+    };
+  }
+}
+
+export async function getAIEnergyTips(prevState: any, formData: FormData) {
+  const validatedFields = energyTipsSchema.safeParse({
+    usageData: formData.get("usageData"),
+    appliances: formData.get("appliances"),
+  });
+
+  if (!validatedFields.success) {
+    return {
+      message: "Invalid form data.",
+      errors: validatedFields.error.flatten().fieldErrors,
+    };
+  }
+
+  try {
+    const result = await getEnergySavingTips(
+      validatedFields.data as EnergySavingTipsInput
+    );
+    return { message: "success", data: result, errors: {} };
+  } catch (error) {
+    console.error(error);
+    return {
+      message: "An error occurred while generating AI tips.",
       errors: {},
     };
   }

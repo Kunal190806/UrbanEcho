@@ -29,6 +29,7 @@ const SuggestNewPoiOutputSchema = z.object({
   suggestions: z
     .string()
     .describe('A list of suggested new points of interest for the user.'),
+  imageHints: z.array(z.string()).describe('A list of two-word keywords representing the types of places suggested, to be used for finding relevant images. For example: ["historic tomb", "trendy cafe"]').optional(),
 });
 
 export type SuggestNewPoiOutput = z.infer<typeof SuggestNewPoiOutputSchema>;
@@ -50,13 +51,13 @@ const suggestNewPoiFlow = ai.defineFlow(
       output: {schema: SuggestNewPoiOutputSchema},
       prompt: `You are a city guide that recommends new points of interest to users based on their travel history and preferences.
     
-      Consider the user's travel history, preferences, and available points of interest in the city to generate personalized suggestions.
+      Consider the user's travel history, preferences, and available points of interest in the city to generate personalized suggestions. Based on your suggestions, provide a list of two-word "imageHints" that best represent the categories of places you recommended. For example, if you suggest a historic monument and a modern cafe, the hints could be ["historic monument", "modern cafe"].
     
       Travel History: {{{travelHistory}}}
       Preferences: {{{preferences}}}
       City Data: {{{cityData}}}
     
-      Suggestions:`,
+      Generate the suggestions and corresponding image hints.`,
     });
     const {output} = await suggestNewPoiPrompt(input);
     return output!;

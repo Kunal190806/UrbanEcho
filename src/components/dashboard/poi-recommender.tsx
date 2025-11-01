@@ -32,9 +32,11 @@ function SubmitButton() {
 export function PoiRecommender() {
   const initialState = { message: "", errors: {}, data: null };
   const [state, dispatch] = useActionState(getPoiSuggestions, initialState);
-  const placeholderImages = PlaceHolderImages.filter((img) =>
-    img.id.startsWith("poi-")
-  );
+  
+  const suggestedImages = state.data?.imageHints
+  ? PlaceHolderImages.filter(img => state.data.imageHints.includes(img.imageHint))
+  : [];
+
 
   return (
     <Card>
@@ -84,21 +86,25 @@ export function PoiRecommender() {
               <AlertTitle className="font-semibold">
                 Here are some suggestions for you:
               </AlertTitle>
-              <AlertDescription>
-                <p className="mt-2 text-base">{state.data.suggestions}</p>
-                <div className="mt-4 grid gap-4 md:grid-cols-2">
-                  {placeholderImages.map((image, index) => (
-                    <div key={index} className="overflow-hidden rounded-lg border">
-                      <Image
-                        src={image.imageUrl}
-                        alt={image.description}
-                        width={600}
-                        height={400}
-                        className="h-auto w-full object-cover transition-transform hover:scale-105"
-                        data-ai-hint={image.imageHint}
-                      />
+              <AlertDescription asChild>
+                <div>
+                  <p className="mt-2 text-base">{state.data.suggestions}</p>
+                  {suggestedImages.length > 0 && (
+                    <div className="mt-4 grid gap-4 md:grid-cols-2">
+                      {suggestedImages.map((image, index) => (
+                        <div key={index} className="overflow-hidden rounded-lg border">
+                          <Image
+                            src={image.imageUrl}
+                            alt={image.description}
+                            width={600}
+                            height={400}
+                            className="h-auto w-full object-cover transition-transform hover:scale-105"
+                            data-ai-hint={image.imageHint}
+                          />
+                        </div>
+                      ))}
                     </div>
-                  ))}
+                  )}
                 </div>
               </AlertDescription>
             </Alert>

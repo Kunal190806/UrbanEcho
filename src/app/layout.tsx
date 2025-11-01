@@ -10,10 +10,11 @@ import { SmartCityStatus } from '@/components/dashboard/smart-city-status';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 import { UserMenu } from '@/components/auth/user-menu';
 import { ThemeToggle } from '@/components/theme-toggle';
+import { TravelPreferenceModal } from '@/components/dashboard/travel-preference-modal';
 
 export const metadata: Metadata = {
-  title: 'UrbanEcho: Smart City Companion',
-  description: 'An AI-powered urban lifestyle and sustainability companion that helps citizens make smarter choices in both how they live and how they move.',
+  title: 'CityCompass: Your Smart City Companion',
+  description: 'An AI-powered urban companion that helps you navigate and discover your city like a local.',
 };
 
 export default function RootLayout({
@@ -42,7 +43,7 @@ export default function RootLayout({
                     <div className="flex h-16 items-center border-b px-6">
                       <div className="flex items-center gap-3 font-semibold font-headline">
                         <Logo className="h-8 w-8 text-primary" />
-                        <span className="text-lg">UrbanEcho</span>
+                        <span className="text-lg">CityCompass</span>
                       </div>
                     </div>
                     <div className="flex-1 overflow-auto py-4">
@@ -75,7 +76,7 @@ export default function RootLayout({
                         <div className="flex h-16 items-center border-b px-6">
                           <div className="flex items-center gap-3 font-semibold font-headline">
                             <Logo className="h-8 w-8 text-primary" />
-                            <span className="text-lg text-foreground">UrbanEcho</span>
+                            <span className="text-lg text-foreground">CityCompass</span>
                           </div>
                         </div>
                         <div className="flex-1 overflow-auto py-4">
@@ -94,6 +95,7 @@ export default function RootLayout({
                   </header>
                   <main className="flex flex-1 flex-col">
                     {children}
+                    <TravelPreferenceModal />
                   </main>
                 </div>
               </div>

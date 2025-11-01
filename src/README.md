@@ -1,10 +1,10 @@
-# UrbanEcho: Smart City Navigator
+# CityCompass: Your Smart City Companion
+
+CityCompass is an AI-powered urban companion that helps you navigate and discover your city like a local. Whether you're a resident or a visitor, CityCompass is your guide to smarter travel, local discovery, and essential services.
 
 ## Mission Statement
 
-UrbanEcho not only remembers where you’ve been — it helps you travel smarter, live cleaner, and save energy for a sustainable urban future.
-
-We envision a future where cities are not just smart, but wise. A future where every citizen’s daily actions — from choosing an EV over a fossil-fuel vehicle, to switching off a light, to picking a sustainable route — are connected, measured, and amplified. UrbanEcho is the platform that makes this possible, turning millions of individual choices into a powerful, collective force for environmental transformation. We are building more than an app; we are building a community of citizens actively co-creating the sustainable cities of tomorrow.
+Our mission is to make urban living more accessible, efficient, and enjoyable. CityCompass acts as a local friend, providing real-time information on transport, recommending hidden gems, and connecting you to the pulse of the city. We aim to empower citizens to explore their surroundings with confidence, making every journey a seamless experience.
 
 This is a NextJS starter in Firebase Studio.
 

@@ -5,14 +5,15 @@ export type EnergyAppliance = {
   energyRating: 1 | 2 | 3 | 4 | 5;
   usage: number; // in kWh
   status: "On" | "Off" | "Standby";
+  color: string;
 };
 
 export const energyAppliances: EnergyAppliance[] = [
-  { name: "Air Conditioner", energyRating: 3, usage: 5.2, status: "On" },
-  { name: "Washing Machine", energyRating: 5, usage: 1.8, status: "Off" },
-  { name: "Refrigerator", energyRating: 4, usage: 2.5, status: "On" },
-  { name: "Smart TV", energyRating: 4, usage: 0.9, status: "Standby" },
-  { name: "Lighting", energyRating: 5, usage: 1.1, status: "On" },
+  { name: "Air Conditioner", energyRating: 3, usage: 5.2, status: "On", color: "hsl(var(--chart-1))" },
+  { name: "Washing Machine", energyRating: 5, usage: 1.8, status: "Off", color: "hsl(var(--chart-2))" },
+  { name: "Refrigerator", energyRating: 4, usage: 2.5, status: "On", color: "hsl(var(--chart-3))" },
+  { name: "Smart TV", energyRating: 4, usage: 0.9, status: "Standby", color: "hsl(var(--chart-4))" },
+  { name: "Lighting", energyRating: 5, usage: 1.1, status: "On", color: "hsl(var(--chart-5))" },
 ];
 
 export const dailyUsageData = [

@@ -1,6 +1,6 @@
 'use client';
 
-import { useActionState, useEffect } from 'react';
+import { useActionState } from 'react';
 import { useFormStatus } from 'react-dom';
 import { getAIEnergyTips } from '@/app/actions';
 import {
@@ -16,7 +16,7 @@ import {
   ChartTooltipContent,
   ChartConfig,
 } from '@/components/ui/chart';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Cell } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Cell, PieChart, Pie, Sector } from 'recharts';
 import { Badge } from '@/components/ui/badge';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import {
@@ -31,7 +31,6 @@ import {
   Power,
   PowerOff,
   Lightbulb,
-  AlertTriangle,
   ShieldCheck,
   CheckCircle,
   Trophy,
@@ -48,12 +47,29 @@ const chartConfig = {
   usage: {
     label: 'Usage (kWh)',
   },
+  devices: {
+    label: "Devices"
+  },
+  ...energyAppliances.reduce((acc, appliance) => {
+    acc[appliance.name.toLowerCase().replace(/ /g, '')] = {
+      label: appliance.name,
+      color: appliance.color,
+    };
+    return acc;
+  }, {} as any)
 } satisfies ChartConfig;
 
-const chartData = dailyUsageData.map((day, index) => ({
+const dailyChartData = dailyUsageData.map((day, index) => ({
   ...day,
   fill: `hsl(var(--chart-${(index % 5) + 1}))`,
 }));
+
+const applianceChartData = energyAppliances.map(appliance => ({
+  name: appliance.name,
+  value: appliance.usage,
+  fill: `var(--color-${appliance.name.toLowerCase().replace(/ /g, '')})`
+}));
+
 
 const getRatingColor = (rating: number) => {
   if (rating >= 4) return 'text-green-500';
@@ -182,7 +198,7 @@ export default function EnergyPage() {
           </CardHeader>
           <CardContent>
             <ChartContainer config={chartConfig} className="min-h-[250px] w-full">
-              <BarChart accessibilityLayer data={chartData}>
+              <BarChart accessibilityLayer data={dailyChartData}>
                 <CartesianGrid vertical={false} />
                 <XAxis
                   dataKey="day"
@@ -202,7 +218,7 @@ export default function EnergyPage() {
                   content={<ChartTooltipContent />}
                 />
                 <Bar dataKey="usage" radius={4}>
-                    {chartData.map((entry) => (
+                    {dailyChartData.map((entry) => (
                         <Cell key={entry.day} fill={entry.fill} />
                     ))}
                 </Bar>
@@ -211,100 +227,126 @@ export default function EnergyPage() {
           </CardContent>
         </Card>
 
-        <div className="lg:col-span-2 space-y-6">
-            <Card>
-                <CardHeader>
-                    <CardTitle className="flex items-center gap-2">
-                        <Sparkles className="text-primary" />
-                        AI Energy Tips
-                    </CardTitle>
-                    <CardDescription>
-                        Get personalized tips based on your usage data.
-                    </CardDescription>
-                </CardHeader>
-                <CardContent>
-                    <form action={dispatch}>
-                        <input type="hidden" name="usageData" value={usageDataString} />
-                        <input type="hidden" name="appliances" value={appliancesString} />
-                        
-                        {state.message === "success" && state.data && (
-                            <div className="space-y-4">
-                                {state.data.tips.map((tip: string, index: number) => (
-                                    <Alert key={index} className="bg-card/50">
-                                        <Lightbulb className="h-4 w-4" />
-                                        <AlertTitle>Tip #{index + 1}</AlertTitle>
-                                        <AlertDescription>{tip}</AlertDescription>
-                                    </Alert>
-                                ))}
-                            </div>
-                        )}
-
-                        {state.message && state.message !== "success" && (
-                          <Alert variant="destructive">
-                            <Info className="h-4 w-4" />
-                            <AlertTitle>Error</AlertTitle>
-                            <AlertDescription>{state.message}</AlertDescription>
-                          </Alert>
-                        )}
-
-                        {!state.data && (
-                            <div className="flex flex-col items-center justify-center rounded-lg border-2 border-dashed border-muted p-8 text-center">
-                                <Lightbulb className="h-10 w-10 text-muted-foreground" />
-                                <p className="mt-4 text-sm font-medium text-muted-foreground">
-                                    Click the button to generate personalized energy-saving tips from our AI.
-                                </p>
-                            </div>
-                        )}
-                        <AITipsButton />
-                    </form>
-                </CardContent>
-            </Card>
-        </div>
+        <Card className="lg:col-span-2">
+            <CardHeader>
+                <CardTitle>Consumption Breakdown</CardTitle>
+                <CardDescription>Energy usage per appliance.</CardDescription>
+            </CardHeader>
+            <CardContent>
+                <ChartContainer
+                    config={chartConfig}
+                    className="mx-auto aspect-square max-h-[300px]"
+                >
+                    <PieChart>
+                        <ChartTooltip
+                        cursor={false}
+                        content={<ChartTooltipContent hideLabel hideIndicator />}
+                        />
+                        <Pie
+                        data={applianceChartData}
+                        dataKey="value"
+                        nameKey="name"
+                        innerRadius={60}
+                        strokeWidth={5}
+                        />
+                    </PieChart>
+                </ChartContainer>
+            </CardContent>
+        </Card>
 
       </div>
 
-      <Card>
-        <CardHeader>
-          <CardTitle>Appliance Consumption</CardTitle>
-          <CardDescription>
-            Real-time energy usage and efficiency ratings of your devices.
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <div className="divide-y divide-border">
-            {energyAppliances.map((appliance) => (
-              <div
-                key={appliance.name}
-                className="flex items-center justify-between py-3"
-              >
-                <div className="flex items-center gap-4">
-                    {getStatusIcon(appliance.status)}
-                    <span className="font-medium">{appliance.name}</span>
+      <div className="grid gap-6 md:grid-cols-2">
+        <Card>
+            <CardHeader>
+            <CardTitle>Appliance Consumption</CardTitle>
+            <CardDescription>
+                Real-time energy usage and efficiency ratings of your devices.
+            </CardDescription>
+            </CardHeader>
+            <CardContent>
+            <div className="divide-y divide-border">
+                {energyAppliances.map((appliance) => (
+                <div
+                    key={appliance.name}
+                    className="flex items-center justify-between py-3"
+                >
+                    <div className="flex items-center gap-4">
+                        {getStatusIcon(appliance.status)}
+                        <span className="font-medium">{appliance.name}</span>
+                    </div>
+                    <div className="flex items-center gap-6">
+                    <div className="flex items-center gap-1" title={`${appliance.energyRating}-star rating`}>
+                        {[...Array(5)].map((_, i) => (
+                        <Star
+                            key={i}
+                            className={cn(
+                            "h-4 w-4",
+                            i < appliance.energyRating
+                                ? getRatingColor(appliance.energyRating)
+                                : "text-muted-foreground/30"
+                            )}
+                            fill="currentColor"
+                        />
+                        ))}
+                    </div>
+                    <Badge variant="secondary" className="w-24 justify-center">
+                        {appliance.usage} kWh
+                    </Badge>
+                    </div>
                 </div>
-                <div className="flex items-center gap-6">
-                  <div className="flex items-center gap-1" title={`${appliance.energyRating}-star rating`}>
-                    {[...Array(5)].map((_, i) => (
-                      <Star
-                        key={i}
-                        className={cn(
-                          "h-4 w-4",
-                          i < appliance.energyRating
-                            ? getRatingColor(appliance.energyRating)
-                            : "text-muted-foreground/30"
-                        )}
-                        fill="currentColor"
-                      />
-                    ))}
-                  </div>
-                  <Badge variant="secondary" className="w-24 justify-center">
-                    {appliance.usage} kWh
-                  </Badge>
-                </div>
-              </div>
-            ))}
-          </div>
-        </CardContent>
-      </Card>
+                ))}
+            </div>
+            </CardContent>
+        </Card>
+        <Card>
+            <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                    <Sparkles className="text-primary" />
+                    AI Energy Tips
+                </CardTitle>
+                <CardDescription>
+                    Get personalized tips based on your usage data.
+                </CardDescription>
+            </CardHeader>
+            <CardContent>
+                <form action={dispatch}>
+                    <input type="hidden" name="usageData" value={usageDataString} />
+                    <input type="hidden" name="appliances" value={appliancesString} />
+                    
+                    {state.message === "success" && state.data && (
+                        <div className="space-y-4">
+                            {state.data.tips.map((tip: string, index: number) => (
+                                <Alert key={index} className="bg-card/50">
+                                    <Lightbulb className="h-4 w-4" />
+                                    <AlertTitle>Tip #{index + 1}</AlertTitle>
+                                    <AlertDescription>{tip}</AlertDescription>
+                                </Alert>
+                            ))}
+                        </div>
+                    )}
+
+                    {state.message && state.message !== "success" && (
+                        <Alert variant="destructive">
+                        <Info className="h-4 w-4" />
+                        <AlertTitle>Error</AlertTitle>
+                        <AlertDescription>{state.message}</AlertDescription>
+                        </Alert>
+                    )}
+
+                    {!state.data && (
+                        <div className="flex flex-col items-center justify-center rounded-lg border-2 border-dashed border-muted p-8 text-center">
+                            <Lightbulb className="h-10 w-10 text-muted-foreground" />
+                            <p className="mt-4 text-sm font-medium text-muted-foreground">
+                                Click the button to generate personalized energy-saving tips from our AI.
+                            </p>
+                        </div>
+                    )}
+                    <AITipsButton />
+                </form>
+            </CardContent>
+        </Card>
+      </div>
     </div>
   );
 }

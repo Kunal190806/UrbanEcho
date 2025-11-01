@@ -1,0 +1,186 @@
+
+"use client";
+
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+} from "@/components/ui/card";
+import {
+  ChartContainer,
+  ChartTooltip,
+  ChartTooltipContent,
+  ChartConfig,
+} from "@/components/ui/chart";
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Cell } from "recharts";
+import { Badge } from "@/components/ui/badge";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import {
+  energyAppliances,
+  dailyUsageData,
+  energyInsights,
+} from "@/lib/energy-data";
+import { Star, Zap, Power, PowerOff, Lightbulb, AlertTriangle } from "lucide-react";
+import Image from "next/image";
+import { PlaceHolderImages } from "@/lib/placeholder-images";
+import { cn } from "@/lib/utils";
+
+const chartConfig = {
+  usage: {
+    label: "Usage (kWh)",
+  },
+} satisfies ChartConfig;
+
+const chartData = dailyUsageData.map((day, index) => ({
+  ...day,
+  fill: `hsl(var(--chart-${(index % 5) + 1}))`,
+}));
+
+const getRatingColor = (rating: number) => {
+  if (rating >= 4) return "text-green-500";
+  if (rating >= 3) return "text-yellow-500";
+  return "text-red-500";
+};
+
+const getStatusIcon = (status: string) => {
+  switch (status) {
+    case "On":
+      return <Power className="h-4 w-4 text-green-500" />;
+    case "Off":
+      return <PowerOff className="h-4 w-4 text-muted-foreground" />;
+    case "Standby":
+      return <Zap className="h-4 w-4 text-yellow-500" />;
+    default:
+      return null;
+  }
+};
+
+export function HomeEnergy() {
+  const heroImage = PlaceHolderImages.find((img) => img.id === "smart-home");
+
+  return (
+    <div className="grid gap-6">
+      <div className="relative h-48 w-full overflow-hidden rounded-xl shadow-lg">
+        {heroImage ? (
+          <Image
+            src={heroImage.imageUrl}
+            alt={heroImage.description}
+            fill
+            className="object-cover"
+            data-ai-hint={heroImage.imageHint}
+          />
+        ) : (
+          <div className="w-full h-full bg-muted" />
+        )}
+        <div className="absolute inset-0 bg-gradient-to-t from-background/70 to-transparent" />
+        <div className="absolute bottom-4 left-4">
+          <h2 className="text-2xl font-bold text-primary-foreground font-headline shadow-lg">
+            Your Home Energy Hub
+          </h2>
+          <p className="text-sm text-primary-foreground/90 max-w-md shadow-lg">
+            Monitor consumption, gain insights, and build sustainable habits.
+          </p>
+        </div>
+      </div>
+      
+      <div className="grid gap-6 lg:grid-cols-5">
+        <Card className="lg:col-span-3">
+          <CardHeader>
+            <CardTitle>Weekly Energy Usage</CardTitle>
+            <CardDescription>
+              A summary of your household energy consumption over the last 7 days.
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <ChartContainer config={chartConfig} className="min-h-[250px] w-full">
+              <BarChart accessibilityLayer data={chartData}>
+                <CartesianGrid vertical={false} />
+                <XAxis
+                  dataKey="day"
+                  tickLine={false}
+                  tickMargin={10}
+                  axisLine={false}
+                  stroke="hsl(var(--muted-foreground))"
+                  fontSize={12}
+                />
+                <YAxis 
+                    stroke="hsl(var(--muted-foreground))"
+                    fontSize={12}
+                    label={{ value: 'kWh', angle: -90, position: 'insideLeft', offset: -0, style: { textAnchor: 'middle', fill: 'hsl(var(--muted-foreground))' } }}
+                />
+                <ChartTooltip
+                  cursor={false}
+                  content={<ChartTooltipContent />}
+                />
+                <Bar dataKey="usage" radius={4}>
+                    {chartData.map((entry) => (
+                        <Cell key={entry.day} fill={entry.fill} />
+                    ))}
+                </Bar>
+              </BarChart>
+            </ChartContainer>
+          </CardContent>
+        </Card>
+
+        <div className="lg:col-span-2 space-y-6">
+            {energyInsights.map((insight, index) => {
+                const Icon = insight.title.includes("Alert") ? AlertTriangle : Lightbulb;
+                return (
+                    <Alert key={index} variant={insight.title.includes("Alert") ? "destructive" : "default"} className="bg-card">
+                        <Icon className="h-4 w-4" />
+                        <AlertTitle>{insight.title}</AlertTitle>
+                        <AlertDescription>{insight.description}</AlertDescription>
+                    </Alert>
+                )
+            })}
+        </div>
+
+      </div>
+
+      <Card>
+        <CardHeader>
+          <CardTitle>Appliance Consumption</CardTitle>
+          <CardDescription>
+            Real-time energy usage and efficiency ratings of your devices.
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="divide-y divide-border">
+            {energyAppliances.map((appliance) => (
+              <div
+                key={appliance.name}
+                className="flex items-center justify-between py-3"
+              >
+                <div className="flex items-center gap-4">
+                    {getStatusIcon(appliance.status)}
+                    <span className="font-medium">{appliance.name}</span>
+                </div>
+                <div className="flex items-center gap-6">
+                  <div className="flex items-center gap-1" title={`${appliance.energyRating}-star rating`}>
+                    {[...Array(5)].map((_, i) => (
+                      <Star
+                        key={i}
+                        className={cn(
+                          "h-4 w-4",
+                          i < appliance.energyRating
+                            ? getRatingColor(appliance.energyRating)
+                            : "text-muted-foreground/30"
+                        )}
+                        fill="currentColor"
+                      />
+                    ))}
+                  </div>
+                  <Badge variant="secondary" className="w-24 justify-center">
+                    {appliance.usage} kWh
+                  </Badge>
+                </div>
+              </div>
+            ))}
+          </div>
+        </CardContent>
+      </Card>
+    </div>
+  );
+}

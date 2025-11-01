@@ -37,27 +37,6 @@ export async function suggestSustainableRoutes(
   return sustainableRouteSuggestionsFlow(input);
 }
 
-const prompt = ai.definePrompt({
-  name: 'sustainableRouteSuggestionsPrompt',
-  input: {schema: SustainableRouteSuggestionsInputSchema},
-  output: {schema: SustainableRouteSuggestionsOutputSchema},
-  prompt: `You are an expert in sustainable transportation and route planning. Given a starting location, a destination location, and a list of available transport modes, suggest several routes that minimize carbon footprint.
-
-Starting Location: {{{startLocation}}}
-Destination Location: {{{endLocation}}}
-Transport Modes: {{#each transportModes}}{{{this}}}{{#unless @last}}, {{/unless}}{{/each}}
-
-Consider the following factors when determining the carbon footprint of each route:
-
-*   The type of transport mode (e.g., walking, cycling, public transportation, electric vehicle, gasoline car).
-*   The distance traveled by each mode.
-*   The energy efficiency of each mode.
-*   The availability of public transportation and EV charging stations.
-
-Present the routes in a JSON format as described by the SustainableRouteSuggestionsOutputSchema schema. Focus on suggesting routes that use public transport, walking, cycling or EVs.
-`,
-});
-
 const sustainableRouteSuggestionsFlow = ai.defineFlow(
   {
     name: 'sustainableRouteSuggestionsFlow',
@@ -65,6 +44,26 @@ const sustainableRouteSuggestionsFlow = ai.defineFlow(
     outputSchema: SustainableRouteSuggestionsOutputSchema,
   },
   async input => {
+    const prompt = ai.definePrompt({
+      name: 'sustainableRouteSuggestionsPrompt',
+      input: {schema: SustainableRouteSuggestionsInputSchema},
+      output: {schema: SustainableRouteSuggestionsOutputSchema},
+      prompt: `You are an expert in sustainable transportation and route planning. Given a starting location, a destination location, and a list of available transport modes, suggest several routes that minimize carbon footprint.
+    
+    Starting Location: {{{startLocation}}}
+    Destination Location: {{{endLocation}}}
+    Transport Modes: {{#each transportModes}}{{{this}}}{{#unless @last}}, {{/unless}}{{/each}}
+    
+    Consider the following factors when determining the carbon footprint of each route:
+    
+    *   The type of transport mode (e.g., walking, cycling, public transportation, electric vehicle, gasoline car).
+    *   The distance traveled by each mode.
+    *   The energy efficiency of each mode.
+    *   The availability of public transportation and EV charging stations.
+    
+    Present the routes in a JSON format as described by the SustainableRouteSuggestionsOutputSchema schema. Focus on suggesting routes that use public transport, walking, cycling or EVs.
+    `,
+    });
     const {output} = await prompt(input);
     return output!;
   }

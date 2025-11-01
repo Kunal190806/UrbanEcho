@@ -37,21 +37,6 @@ export async function suggestNewPoi(input: SuggestNewPoiInput): Promise<SuggestN
   return suggestNewPoiFlow(input);
 }
 
-const suggestNewPoiPrompt = ai.definePrompt({
-  name: 'suggestNewPoiPrompt',
-  input: {schema: SuggestNewPoiInputSchema},
-  output: {schema: SuggestNewPoiOutputSchema},
-  prompt: `You are a city guide that recommends new points of interest to users based on their travel history and preferences.
-
-  Consider the user's travel history, preferences, and available points of interest in the city to generate personalized suggestions.
-
-  Travel History: {{{travelHistory}}}
-  Preferences: {{{preferences}}}
-  City Data: {{{cityData}}}
-
-  Suggestions:`,
-});
-
 const suggestNewPoiFlow = ai.defineFlow(
   {
     name: 'suggestNewPoiFlow',
@@ -59,6 +44,20 @@ const suggestNewPoiFlow = ai.defineFlow(
     outputSchema: SuggestNewPoiOutputSchema,
   },
   async input => {
+    const suggestNewPoiPrompt = ai.definePrompt({
+      name: 'suggestNewPoiPrompt',
+      input: {schema: SuggestNewPoiInputSchema},
+      output: {schema: SuggestNewPoiOutputSchema},
+      prompt: `You are a city guide that recommends new points of interest to users based on their travel history and preferences.
+    
+      Consider the user's travel history, preferences, and available points of interest in the city to generate personalized suggestions.
+    
+      Travel History: {{{travelHistory}}}
+      Preferences: {{{preferences}}}
+      City Data: {{{cityData}}}
+    
+      Suggestions:`,
+    });
     const {output} = await suggestNewPoiPrompt(input);
     return output!;
   }

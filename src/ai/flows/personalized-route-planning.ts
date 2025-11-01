@@ -11,7 +11,7 @@
 import {ai} from '@/ai/genkit';
 import {z} from 'genkit';
 
-export const RoutePlanInputSchema = z.object({
+const RoutePlanInputSchema = z.object({
   startLocation: z.string().describe('The starting location for the route.'),
   endLocation: z.string().describe('The destination location for the route.'),
   preferredModes: z
@@ -25,7 +25,7 @@ export const RoutePlanInputSchema = z.object({
 
 export type RoutePlanInput = z.infer<typeof RoutePlanInputSchema>;
 
-export const RoutePlanOutputSchema = z.object({
+const RoutePlanOutputSchema = z.object({
   plan: z
     .string()
     .describe('A step-by-step description of the personalized route plan.'),
@@ -37,21 +37,6 @@ export async function personalizedRoutePlan(input: RoutePlanInput): Promise<Rout
   return personalizedRoutePlanFlow(input);
 }
 
-const prompt = ai.definePrompt({
-  name: 'personalizedRoutePlanPrompt',
-  input: {schema: RoutePlanInputSchema},
-  output: {schema: RoutePlanOutputSchema},
-  prompt: `You are an intelligent route planning assistant for a smart city. Your goal is to create a personalized route plan based on the user's starting location, destination, and preferred modes of transport.
-
-  Start Location: {{{startLocation}}}
-  Destination: {{{endLocation}}}
-  Preferred Modes: {{#each preferredModes}}{{{this}}}{{#unless @last}}, {{/unless}}{{/each}}
-  
-  Generate a concise, step-by-step route plan that is easy to follow. Be creative and consider the best combination of the preferred modes.
-  
-  Route Plan:`,
-});
-
 const personalizedRoutePlanFlow = ai.defineFlow(
   {
     name: 'personalizedRoutePlanFlow',
@@ -59,6 +44,20 @@ const personalizedRoutePlanFlow = ai.defineFlow(
     outputSchema: RoutePlanOutputSchema,
   },
   async input => {
+    const prompt = ai.definePrompt({
+      name: 'personalizedRoutePlanPrompt',
+      input: {schema: RoutePlanInputSchema},
+      output: {schema: RoutePlanOutputSchema},
+      prompt: `You are an intelligent route planning assistant for a smart city. Your goal is to create a personalized route plan based on the user's starting location, destination, and preferred modes of transport.
+    
+      Start Location: {{{startLocation}}}
+      Destination: {{{endLocation}}}
+      Preferred Modes: {{#each preferredModes}}{{{this}}}{{#unless @last}}, {{/unless}}{{/each}}
+      
+      Generate a concise, step-by-step route plan that is easy to follow. Be creative and consider the best combination of the preferred modes.
+      
+      Route Plan:`,
+    });
     const {output} = await prompt(input);
     return output!;
   }

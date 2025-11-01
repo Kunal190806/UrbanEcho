@@ -12,8 +12,16 @@ import {
   suggestSustainableRoutes,
   type SustainableRouteSuggestionsInput,
 } from "@/ai/flows/sustainable-route-suggestions";
-import { poiSchema, routePlanSchema, sustainableRouteSchema } from "@/lib/schemas";
-
+import {
+  memorySchema,
+  poiSchema,
+  routePlanSchema,
+  sustainableRouteSchema,
+} from "@/lib/schemas";
+import { saveMemory, type SaveMemoryInput } from "@/ai/flows/save-memory-flow";
+import { addDoc, collection } from "firebase/firestore";
+import { getFirestore } from "firebase-admin/firestore";
+import { auth } from "firebase-admin";
 
 export async function getPersonalizedRoute(prevState: any, formData: FormData) {
   const validatedFields = routePlanSchema.safeParse({
@@ -36,7 +44,10 @@ export async function getPersonalizedRoute(prevState: any, formData: FormData) {
     return { message: "success", data: result, errors: {} };
   } catch (error) {
     console.error(error);
-    return { message: "An error occurred while planning the route.", errors: {} };
+    return {
+      message: "An error occurred while planning the route.",
+      errors: {},
+    };
   }
 }
 
@@ -64,7 +75,10 @@ export async function getPoiSuggestions(prevState: any, formData: FormData) {
     return { message: "success", data: result, errors: {} };
   } catch (error) {
     console.error(error);
-    return { message: "An error occurred while fetching suggestions.", errors: {} };
+    return {
+      message: "An error occurred while fetching suggestions.",
+      errors: {},
+    };
   }
 }
 
@@ -94,6 +108,49 @@ export async function getSustainableRoutes(
     return { message: "success", data: result, errors: {} };
   } catch (error) {
     console.error(error);
-    return { message: "An error occurred while suggesting routes.", errors: {} };
+    return {
+      message: "An error occurred while suggesting routes.",
+      errors: {},
+    };
+  }
+}
+
+export async function saveMemoryAction(prevState: any, formData: FormData) {
+  const validatedFields = memorySchema.safeParse({
+    command: formData.get("command"),
+    userId: formData.get("userId"),
+  });
+
+  if (!validatedFields.success) {
+    return {
+      message: "Invalid form data.",
+      errors: validatedFields.error.flatten().fieldErrors,
+    };
+  }
+
+  try {
+    const memoryData = await saveMemory(
+      validatedFields.data as SaveMemoryInput
+    );
+    const db = getFirestore();
+
+    await addDoc(
+      collection(db, `users/${validatedFields.data.userId}/memories`),
+      {
+        ...memoryData,
+        createdAt: new Date(),
+      }
+    );
+
+    return {
+      message: `Successfully saved memory: ${memoryData.placeName}`,
+      data: memoryData,
+      errors: {},
+    };
+  } catch (error: any) {
+    return {
+      message: error.message,
+      errors: {},
+    };
   }
 }

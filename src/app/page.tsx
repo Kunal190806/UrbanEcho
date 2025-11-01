@@ -1,4 +1,4 @@
-import { Menu, User } from 'lucide-react';
+import { Menu } from 'lucide-react';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { Logo } from '@/components/icons';
@@ -9,12 +9,14 @@ import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { SmartWidgets } from '@/components/dashboard/smart-widgets';
 import { PreferenceModal } from '@/components/setup/preference-modal';
+import { UserMenu } from '@/components/auth/user-menu';
+import { FirebaseProvider } from '@/firebase/provider';
 
 export default function Home() {
   const mapImage = PlaceHolderImages.find((img) => img.id === 'map');
 
   return (
-    <>
+    <FirebaseProvider>
       <PreferenceModal />
       <div className="flex min-h-screen w-full flex-col bg-background">
         <div className="grid min-h-screen w-full lg:grid-cols-[280px_1fr]">
@@ -69,10 +71,7 @@ export default function Home() {
               <h1 className="flex-1 text-xl font-semibold font-headline md:text-2xl">
                 Smart City Navigator
               </h1>
-              <Button variant="ghost" size="icon" className="rounded-full">
-                <User className="h-5 w-5" />
-                <span className="sr-only">Toggle user menu</span>
-              </Button>
+              <UserMenu />
             </header>
             <main className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-6">
               <div className="relative h-64 w-full overflow-hidden rounded-xl shadow-lg md:h-[400px]">
@@ -97,6 +96,6 @@ export default function Home() {
           </div>
         </div>
       </div>
-    </>
+    </FirebaseProvider>
   );
 }

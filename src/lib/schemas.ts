@@ -17,3 +17,8 @@ export const sustainableRouteSchema = z.object({
   startLocation: z.string().min(1, "Start location is required"),
   endLocation: z.string().min(1, "End location is required"),
 });
+
+export const memorySchema = z.object({
+  command: z.string().min(1, "Command is required"),
+  userId: z.string().min(1, "User ID is required"),
+});

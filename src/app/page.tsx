@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Logo } from '@/components/icons';
 import { FavoritePlaces } from '@/components/dashboard/favorite-places';
 import { SmartCityStatus } from '@/components/dashboard/smart-city-status';
-import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 import Image from 'next/image';
 import { DashboardTabs } from '@/components/dashboard/dashboard-tabs';
 import { FirebaseProvider } from '@/firebase/provider';
@@ -50,6 +50,9 @@ export default function Home() {
                   </Button>
                 </SheetTrigger>
                 <SheetContent side="left" className="flex flex-col">
+                  <SheetHeader className="sr-only">
+                    <SheetTitle>Navigation Menu</SheetTitle>
+                  </SheetHeader>
                   <div className="flex h-16 items-center border-b px-6">
                     <div className="flex items-center gap-3 font-semibold font-headline">
                       <Logo className="h-8 w-8 text-primary" />

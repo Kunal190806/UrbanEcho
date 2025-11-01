@@ -83,6 +83,30 @@
       "description": "Book cover for 'Knife' by Salman Rushdie.",
       "imageUrl": "https://images.unsplash.com/photo-1528459105426-b9548367069b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxib29rJTIwY292ZXJ8ZW58MHx8fHwxNzYxOTg1MDc5fDA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "book cover"
+    },
+    {
+      "id": "explore-1",
+      "description": "India Gate war memorial in New Delhi.",
+      "imageUrl": "https://images.unsplash.com/photo-1668316430293-e7a3edd77f64?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxoaXN0b3JpYyUyMG1vbnVtZW50fGVufDB8fHx8MTc2MjAxMTg5Nnww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "historic monument"
+    },
+    {
+      "id": "explore-2",
+      "description": "Hauz Khas Village with its lake and ancient tombs.",
+      "imageUrl": "https://images.unsplash.com/photo-1659364310074-85ec33a7b1f8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHx1cmJhbiUyMHZpbGxhZ2V8ZW58MHx8fHwxNzYyMDQxMzk1fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "urban village"
+    },
+    {
+      "id": "explore-3",
+      "description": "The tall Qutub Minar brick minaret.",
+      "imageUrl": "https://images.unsplash.com/photo-1565161729906-906059847439?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxoaXN0b3JpYyUyMHRvd2VyfGVufDB8fHx8MTc2MjA0MTM5NXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "historic tower"
+    },
+    {
+      "id": "explore-hero",
+      "description": "A vibrant and colorful cityscape.",
+      "imageUrl": "https://images.unsplash.com/photo-1480714378408-67cf0d13bc1b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxjaXR5c2NhcGV8ZW58MHx8fHwxNzYyMDEwODMwfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "cityscape"
     }
   ]
 }

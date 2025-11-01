@@ -1,6 +1,6 @@
 
 import type { LucideIcon } from 'lucide-react';
-import { Home, Briefcase, Library, Map, Zap } from 'lucide-react';
+import { Home, Map, Briefcase, Library, Zap } from 'lucide-react';
 
 export type FavoritePlace = {
   name: string;
@@ -29,10 +29,16 @@ export const favoritePlaces: FavoritePlace[] = [
     href: '/work',
   },
   {
-    name: 'City Library',
-    address: 'Nehru Memorial Museum & Library',
-    icon: Library,
-    href: '/city-library',
+    name: 'Explore',
+    address: 'Discover new places',
+    icon: Map,
+    href: '/explore',
+  },
+  {
+    name: 'Energy',
+    address: 'Manage your consumption',
+    icon: Zap,
+    href: '/',
   },
 ];
 
@@ -190,4 +196,40 @@ export const newBookArrivals: NewBookArrival[] = [
         author: "Salman Rushdie",
         imageId: "book-3",
     }
-]
+];
+
+export type Attraction = {
+  id: string;
+  name: string;
+  description: string;
+  rating: number;
+  distance: string;
+  imageId: string;
+};
+
+export const topAttractions: Attraction[] = [
+  {
+    id: "attr-1",
+    name: "India Gate",
+    description: "War memorial standing tall in the heart of Delhi.",
+    rating: 4.8,
+    distance: "2.5 km",
+    imageId: "explore-1",
+  },
+  {
+    id: "attr-2",
+    name: "Hauz Khas Village",
+    description: "A perfect blend of history, art, and urban culture.",
+    rating: 4.6,
+    distance: "8.1 km",
+    imageId: "explore-2",
+  },
+  {
+    id: "attr-3",
+    name: "Qutub Minar",
+    description: "A towering minaret and UNESCO World Heritage Site.",
+    rating: 4.7,
+    distance: "10.3 km",
+    imageId: "explore-3",
+  },
+];

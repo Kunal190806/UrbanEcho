@@ -41,8 +41,8 @@ export const energyInsights: EnergyInsight[] = [
         description: "Your washing machine consumes 1.8x the city average. Switching to a 5-star inverter model could save you over ₹2,000 a year."
     },
     {
-        title: "AI Power Tip",
-        description: "Using LED bulbs instead of CFLs for your most-used lights could reduce lighting costs by up to ₹250/month."
+        title: "Smart Ecosystem Tip",
+        description: "Driving an EV? UrbanEcho can sync with your home charger to recommend off-peak charging times, saving you money and supporting the grid."
     }
 ];
 
@@ -107,3 +107,4 @@ export const energyWidgetData: EnergyWidgetData = {
     },
   ],
 };
+

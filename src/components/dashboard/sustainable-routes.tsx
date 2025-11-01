@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useActionState } from "react";
@@ -67,9 +68,9 @@ export function SustainableRoutes() {
               <Input
                 id="startLocation-eco"
                 name="startLocation"
-                placeholder="e.g., Connaught Place, Delhi"
+                placeholder="e.g., Gateway of India, Mumbai"
                 required
-                defaultValue="India Gate, Delhi"
+                defaultValue="Gateway of India, Mumbai"
               />
               {state.errors?.startLocation && (
                 <p className="text-sm font-medium text-destructive">
@@ -82,9 +83,9 @@ export function SustainableRoutes() {
               <Input
                 id="endLocation-eco"
                 name="endLocation"
-                placeholder="e.g., Humayun's Tomb, Delhi"
+                placeholder="e.g., Juhu Beach, Mumbai"
                 required
-                defaultValue="Connaught Place, Delhi"
+                defaultValue="Juhu Beach, Mumbai"
               />
               {state.errors?.endLocation && (
                 <p className="text-sm font-medium text-destructive">

@@ -70,8 +70,8 @@ export default function RootLayout({
                           <span className="sr-only">Toggle navigation menu</span>
                         </Button>
                       </SheetTrigger>
-                      <SheetContent side="left" className="flex flex-col">
-                        <SheetHeader>
+                      <SheetContent side="left" className="flex flex-col p-0">
+                        <SheetHeader className="p-6">
                           <SheetTitle className='sr-only'>Navigation Menu</SheetTitle>
                         </SheetHeader>
                         <div className="flex h-16 items-center border-b px-6">

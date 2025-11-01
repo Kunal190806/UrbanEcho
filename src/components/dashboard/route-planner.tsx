@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useActionState } from "react";
@@ -15,8 +16,9 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Loader2, Car, TramFront, Bus, Footprints, Zap, ExternalLink } from "lucide-react";
+import { Loader2, Car, TramFront, Bus, Footprints, Zap, ExternalLink, CheckCircle } from "lucide-react";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { cn } from "@/lib/utils";
 
 const transportOptions = [
   { id: "walking", label: "Walking", icon: Footprints },
@@ -36,6 +38,16 @@ function SubmitButton() {
   );
 }
 
+const getIconForStep = (step: string) => {
+    const lowerCaseStep = step.toLowerCase();
+    if (lowerCaseStep.includes("walk")) return <Footprints className="h-5 w-5 text-primary" />;
+    if (lowerCaseStep.includes("bus")) return <Bus className="h-5 w-5 text-primary" />;
+    if (lowerCaseStep.includes("metro")) return <TramFront className="h-5 w-5 text-primary" />;
+    if (lowerCaseStep.includes("ev") || lowerCaseStep.includes("electric")) return <Zap className="h-5 w-5 text-primary" />;
+    if (lowerCaseStep.includes("auto") || lowerCaseStep.includes("car") || lowerCaseStep.includes("cab")) return <Car className="h-5 w-5 text-primary" />;
+    return <CheckCircle className="h-5 w-5 text-primary" />;
+};
+
 export function RoutePlanner() {
   const initialState = { message: "", errors: {}, data: null, input: null };
   const [state, dispatch] = useActionState(getPersonalizedRoute, initialState);
@@ -49,6 +61,8 @@ export function RoutePlanner() {
           startLocation
         )}&destination=${encodeURIComponent(endLocation)}`
       : "";
+
+  const routeSteps = state.data?.plan.split('\n').filter((step: string) => step.trim() !== '' && step.trim().startsWith('-')).map((step: string) => step.substring(1).trim());
 
 
   return (
@@ -121,21 +135,38 @@ export function RoutePlanner() {
             )}
           </div>
 
-          {state.message === "success" && state.data && (
+          {state.message === "success" && state.data && routeSteps && (
             <Alert className="bg-card">
               <AlertTitle className="font-semibold text-lg">
                 Your Personalized Route
               </AlertTitle>
-              <AlertDescription>
-                <div className="mt-4 text-base whitespace-pre-line">{state.data.plan}</div>
-                {googleMapsUrl && (
-                  <Button asChild variant="outline" className="mt-4">
-                    <a href={googleMapsUrl} target="_blank" rel="noopener noreferrer">
-                      <ExternalLink className="mr-2 h-4 w-4" />
-                      View on Google Maps
-                    </a>
-                  </Button>
-                )}
+              <AlertDescription asChild>
+                <div className="mt-4">
+                  <ul className="space-y-4">
+                    {routeSteps.map((step: string, index: number) => (
+                      <li key={index} className="flex items-start gap-4">
+                        <div className="flex flex-col items-center">
+                          <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary/10">
+                            {getIconForStep(step)}
+                          </div>
+                          {index < routeSteps.length - 1 && (
+                            <div className="h-8 w-px bg-border" />
+                          )}
+                        </div>
+                        <div className="pt-1.5 text-base text-foreground">{step}</div>
+                      </li>
+                    ))}
+                  </ul>
+
+                  {googleMapsUrl && (
+                    <Button asChild variant="outline" className="mt-6">
+                      <a href={googleMapsUrl} target="_blank" rel="noopener noreferrer">
+                        <ExternalLink className="mr-2 h-4 w-4" />
+                        View on Google Maps
+                      </a>
+                    </Button>
+                  )}
+                </div>
               </AlertDescription>
             </Alert>
           )}

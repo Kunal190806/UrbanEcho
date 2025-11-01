@@ -1,5 +1,5 @@
 import type { LucideIcon } from 'lucide-react';
-import { Home, Briefcase, Library, Coffee } from 'lucide-react';
+import { Home, Briefcase, Library, Coffee, Bolt } from 'lucide-react';
 
 export type FavoritePlace = {
   name: string;
@@ -14,6 +14,12 @@ export const favoritePlaces: FavoritePlace[] = [
     address: 'A-123, Lajpat Nagar, New Delhi',
     icon: Home,
     href: '/',
+  },
+  {
+    name: 'Energy Hub',
+    address: 'Your home energy dashboard',
+    icon: Bolt,
+    href: '/energy',
   },
   {
     name: 'Work',

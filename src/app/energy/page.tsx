@@ -28,7 +28,7 @@ import { Star, Zap, Power, PowerOff, Lightbulb, AlertTriangle, ShieldCheck, Chec
 import Image from "next/image";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
 import { cn } from "@/lib/utils";
-import { Button } from "../ui/button";
+import { Button } from "@/components/ui/button";
 
 const chartConfig = {
   usage: {
@@ -60,11 +60,11 @@ const getStatusIcon = (status: string) => {
   }
 };
 
-export function HomeEnergy() {
+export default function EnergyPage() {
   const heroImage = PlaceHolderImages.find((img) => img.id === "smart-home");
 
   return (
-    <div className="grid gap-6">
+    <div className="flex-1 space-y-4 p-4 md:p-6">
       <div className="relative h-48 w-full overflow-hidden rounded-xl shadow-lg">
         {heroImage ? (
           <Image

@@ -4,7 +4,6 @@ import { useActionState } from 'react';
 import { useFormStatus } from 'react-dom';
 import { getAIEnergyTips } from '@/app/actions';
 import Image from 'next/image';
-import { SmartWidgets } from '@/components/dashboard/smart-widgets';
 import { PlaceHolderImages } from "@/lib/placeholder-images";
 import {
   Card,
@@ -12,7 +11,9 @@ import {
   CardHeader,
   CardTitle,
   CardDescription,
+  CardFooter,
 } from '@/components/ui/card';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   ChartContainer,
   ChartTooltip,
@@ -27,6 +28,8 @@ import {
   dailyUsageData,
   ecoChallenges,
   weeklyImpact,
+  seasonalTips,
+  applianceSchedules,
 } from '@/lib/energy-data';
 import {
   Star,
@@ -40,9 +43,17 @@ import {
   Sparkles,
   Loader2,
   Info,
+  FileDown,
+  CalendarDays,
+  Clock,
+  PlusCircle,
+  Sun,
+  Cloudy,
+  Snowflake,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
+import { Switch } from '@/components/ui/switch';
 
 const chartConfig = {
   usage: {
@@ -77,7 +88,7 @@ const getRatingColor = (rating: number) => {
   return 'text-red-500';
 };
 
-const getStatusIcon = (status: string) => {
+const getStatusIcon = (status: "On" | "Off" | "Standby") => {
   switch (status) {
     case 'On':
       return <Power className="h-4 w-4 text-green-500" />;
@@ -90,6 +101,26 @@ const getStatusIcon = (status: string) => {
   }
 };
 
+const getEfficiencyStatusBadge = (status: "Optimal" | "Inefficient" | "Needs Check") => {
+    switch (status) {
+        case 'Optimal':
+            return <Badge variant="default" className="bg-green-100 text-green-800 dark:bg-green-900/50 dark:text-green-300">Optimal</Badge>;
+        case 'Inefficient':
+            return <Badge variant="destructive">Inefficient</Badge>;
+        case 'Needs Check':
+            return <Badge variant="secondary" className="bg-yellow-100 text-yellow-800 dark:bg-yellow-900/50 dark:text-yellow-300">Needs Check</Badge>;
+    }
+}
+
+const getSeasonIcon = (season: string) => {
+    switch (season.toLowerCase()) {
+        case 'summer': return <Sun className="h-5 w-5 text-yellow-500" />;
+        case 'winter': return <Snowflake className="h-5 w-5 text-blue-400" />;
+        case 'monsoon': return <Cloudy className="h-5 w-5 text-gray-500" />;
+        default: return <CalendarDays className="h-5 w-5" />;
+    }
+};
+
 function AITipsButton() {
   const { pending } = useFormStatus();
   return (
@@ -100,7 +131,6 @@ function AITipsButton() {
   );
 }
 
-
 export default function Home() {
   const heroImage = PlaceHolderImages.find((img) => img.id === 'smart-home');
   const initialState = { message: '', errors: {}, data: null };
@@ -108,7 +138,6 @@ export default function Home() {
 
   const usageDataString = JSON.stringify(dailyUsageData);
   const appliancesString = JSON.stringify(energyAppliances);
-
 
   return (
     <div className="flex-1 space-y-4 p-4 md:p-6">
@@ -257,60 +286,105 @@ export default function Home() {
                 </ChartContainer>
             </CardContent>
         </Card>
-
       </div>
 
       <div className="grid gap-6 md:grid-cols-2">
         <Card>
             <CardHeader>
-            <CardTitle>Appliance Consumption</CardTitle>
-            <CardDescription>
-                Real-time energy usage and efficiency ratings of your devices.
-            </CardDescription>
+                <CardTitle>Appliance Efficiency Audit</CardTitle>
+                <CardDescription>Automated checks on your device performance.</CardDescription>
             </CardHeader>
             <CardContent>
-            <div className="divide-y divide-border">
-                {energyAppliances.map((appliance) => (
-                <div
-                    key={appliance.name}
-                    className="flex items-center justify-between py-3"
-                >
-                    <div className="flex items-center gap-4">
-                        {getStatusIcon(appliance.status)}
-                        <span className="font-medium">{appliance.name}</span>
+                <div className="space-y-4">
+                    {energyAppliances.map((appliance) => (
+                    <div key={appliance.name} className="flex items-center justify-between rounded-lg border p-3">
+                        <div className="flex items-center gap-3">
+                            {getStatusIcon(appliance.status)}
+                            <div>
+                                <p className="font-medium">{appliance.name}</p>
+                                <div className="flex items-center gap-1 text-xs text-muted-foreground" title={`${appliance.energyRating}-star rating`}>
+                                    {[...Array(5)].map((_, i) => (
+                                    <Star
+                                        key={i}
+                                        className={cn("h-3 w-3", i < appliance.energyRating ? getRatingColor(appliance.energyRating) : "text-muted-foreground/30")}
+                                        fill="currentColor"
+                                    />
+                                    ))}
+                                </div>
+                            </div>
+                        </div>
+                        <div className="flex items-center gap-4">
+                            {getEfficiencyStatusBadge(appliance.efficiencyStatus)}
+                            <Badge variant="outline">{appliance.usage} kWh</Badge>
+                        </div>
                     </div>
-                    <div className="flex items-center gap-6">
-                    <div className="flex items-center gap-1" title={`${appliance.energyRating}-star rating`}>
-                        {[...Array(5)].map((_, i) => (
-                        <Star
-                            key={i}
-                            className={cn(
-                            "h-4 w-4",
-                            i < appliance.energyRating
-                                ? getRatingColor(appliance.energyRating)
-                                : "text-muted-foreground/30"
-                            )}
-                            fill="currentColor"
-                        />
-                        ))}
-                    </div>
-                    <Badge variant="secondary" className="w-24 justify-center">
-                        {appliance.usage} kWh
-                    </Badge>
-                    </div>
+                    ))}
                 </div>
-                ))}
-            </div>
             </CardContent>
+            <CardFooter>
+                <Button variant="outline" className="w-full">
+                    <FileDown className="mr-2 h-4 w-4" />
+                    Download Audit Report
+                </Button>
+            </CardFooter>
         </Card>
         <Card>
             <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                     <Sparkles className="text-primary" />
-                    AI Energy Tips
+                    AI Energy Insights
                 </CardTitle>
                 <CardDescription>
-                    Get personalized tips based on your usage data.
+                    Smart scheduling and seasonal energy-saving tips.
+                </CardDescription>
+            </CardHeader>
+            <CardContent>
+                <Tabs defaultValue="seasonal">
+                    <TabsList className="grid w-full grid-cols-2">
+                        <TabsTrigger value="seasonal"><CalendarDays className="mr-2 h-4 w-4" />Seasonal Tips</TabsTrigger>
+                        <TabsTrigger value="scheduling"><Clock className="mr-2 h-4 w-4" />Scheduling</TabsTrigger>
+                    </TabsList>
+                    <TabsContent value="seasonal" className="mt-4">
+                        <div className="space-y-4">
+                            {seasonalTips.map((tip, index) => (
+                                <Alert key={index} className="bg-card/50">
+                                    {getSeasonIcon(tip.season)}
+                                    <AlertTitle className="ml-1">{tip.season}</AlertTitle>
+                                    <AlertDescription>{tip.tip}</AlertDescription>
+                                </Alert>
+                            ))}
+                        </div>
+                    </TabsContent>
+                    <TabsContent value="scheduling" className="mt-4">
+                        <div className="space-y-4">
+                            {applianceSchedules.map((schedule) => (
+                                <div key={schedule.appliance} className="flex items-center justify-between rounded-lg border p-3">
+                                    <div className="space-y-1">
+                                        <p className="font-medium">{schedule.appliance}</p>
+                                        <p className="text-xs text-muted-foreground">{schedule.time}</p>
+                                    </div>
+                                    <Switch checked={schedule.enabled} />
+                                </div>
+                            ))}
+                            <Button variant="outline" className="w-full">
+                                <PlusCircle className="mr-2 h-4 w-4" />
+                                Add New Schedule
+                            </Button>
+                        </div>
+                    </TabsContent>
+                </Tabs>
+            </CardContent>
+        </Card>
+      </div>
+
+       <Card>
+            <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                    <Lightbulb className="text-primary" />
+                    AI Usage Pattern Alerts
+                </CardTitle>
+                <CardDescription>
+                    Get personalized alerts and tips based on your real-time usage data.
                 </CardDescription>
             </CardHeader>
             <CardContent>
@@ -322,8 +396,8 @@ export default function Home() {
                         <div className="space-y-4">
                             {state.data.tips.map((tip: string, index: number) => (
                                 <Alert key={index} className="bg-card/50">
-                                    <Lightbulb className="h-4 w-4" />
-                                    <AlertTitle>Tip #{index + 1}</AlertTitle>
+                                    <Zap className="h-4 w-4" />
+                                    <AlertTitle>Alert & Tip #{index + 1}</AlertTitle>
                                     <AlertDescription>{tip}</AlertDescription>
                                 </Alert>
                             ))}
@@ -342,7 +416,7 @@ export default function Home() {
                         <div className="flex flex-col items-center justify-center rounded-lg border-2 border-dashed border-muted p-8 text-center">
                             <Lightbulb className="h-10 w-10 text-muted-foreground" />
                             <p className="mt-4 text-sm font-medium text-muted-foreground">
-                                Click the button to generate personalized energy-saving tips from our AI.
+                                Click the button to check for unusual patterns and get smart alerts.
                             </p>
                         </div>
                     )}
@@ -350,7 +424,6 @@ export default function Home() {
                 </form>
             </CardContent>
         </Card>
-      </div>
     </div>
   );
 }

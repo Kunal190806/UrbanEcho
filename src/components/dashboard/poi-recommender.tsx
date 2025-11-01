@@ -53,7 +53,7 @@ export function PoiRecommender() {
                 id="travelHistory"
                 name="travelHistory"
                 placeholder="Describe places you've visited recently..."
-                defaultValue="Visited the Modern Art Museum last weekend, and spent an afternoon at the City Park."
+                defaultValue="Visited Lodhi Garden last weekend, and spent an afternoon at Hauz Khas Village."
                 className="min-h-[100px]"
               />
               {state.errors?.travelHistory && (
@@ -68,7 +68,7 @@ export function PoiRecommender() {
                 id="preferences"
                 name="preferences"
                 placeholder="What kind of places do you enjoy?"
-                defaultValue="I enjoy quiet places with historical significance, and also love trying new coffee shops."
+                defaultValue="I enjoy historical places and monuments, and also love trying new cafes."
                 className="min-h-[100px]"
               />
               {state.errors?.preferences && (

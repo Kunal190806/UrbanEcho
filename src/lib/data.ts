@@ -10,22 +10,22 @@ export type FavoritePlace = {
 export const favoritePlaces: FavoritePlace[] = [
   {
     name: 'Home',
-    address: '123 Solitude Street, Apt 4B',
+    address: 'A-123, Lajpat Nagar, New Delhi',
     icon: Home,
   },
   {
     name: 'Work',
-    address: '456 Innovation Avenue',
+    address: 'Cyber Hub, Gurugram',
     icon: Briefcase,
   },
   {
     name: 'City Library',
-    address: '789 Knowledge Blvd',
+    address: 'Nehru Memorial Museum & Library',
     icon: Library,
   },
   {
-    name: 'The Daily Grind',
-    address: '101 Caffeine Corner',
+    name: 'Blue Tokai Coffee',
+    address: 'Khan Market, New Delhi',
     icon: Coffee,
   },
 ];
@@ -70,22 +70,22 @@ export type UpcomingMetro = {
 
 export const upcomingMetros: UpcomingMetro[] = [
   {
-    line: 'Red Line',
-    station: 'Central Station',
+    line: 'Yellow Line',
+    station: 'Rajiv Chowk',
     arrival: '2 mins',
-    color: 'bg-red-500',
+    color: 'bg-yellow-400',
   },
   {
     line: 'Blue Line',
-    station: 'Uptown Station',
+    station: 'Mandi House',
     arrival: '5 mins',
     color: 'bg-blue-500',
   },
   {
-    line: 'Green Line',
-    station: 'Tech Park',
+    line: 'Violet Line',
+    station: 'Kashmere Gate',
     arrival: '8 mins',
-    color: 'bg-green-500',
+    color: 'bg-violet-500',
   },
 ];
 
@@ -97,13 +97,13 @@ export type NearbyStation = {
 
 export const nearbyStations: NearbyStation[] = [
   {
-    name: 'ChargePoint Center',
-    distance: '0.8 mi',
+    name: 'Tata Power EZ Charge',
+    distance: '1.5 km',
     type: 'EV',
   },
   {
-    name: 'City Gas & Go',
-    distance: '1.2 mi',
+    name: 'Indian Oil Petrol Pump',
+    distance: '2.1 km',
     type: 'Petrol',
   },
 ];

@@ -67,9 +67,9 @@ export function SustainableRoutes() {
               <Input
                 id="startLocation-eco"
                 name="startLocation"
-                placeholder="e.g., Downtown Market"
+                placeholder="e.g., Connaught Place, Delhi"
                 required
-                defaultValue="Tech Hub"
+                defaultValue="India Gate, Delhi"
               />
               {state.errors?.startLocation && (
                 <p className="text-sm font-medium text-destructive">
@@ -82,9 +82,9 @@ export function SustainableRoutes() {
               <Input
                 id="endLocation-eco"
                 name="endLocation"
-                placeholder="e.g., Riverside Walk"
+                placeholder="e.g., Humayun's Tomb, Delhi"
                 required
-                defaultValue="City Library"
+                defaultValue="Connaught Place, Delhi"
               />
               {state.errors?.endLocation && (
                 <p className="text-sm font-medium text-destructive">

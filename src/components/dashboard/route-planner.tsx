@@ -67,9 +67,9 @@ export function RoutePlanner() {
               <Input
                 id="startLocation"
                 name="startLocation"
-                placeholder="e.g., Central Park"
+                placeholder="e.g., India Gate, Delhi"
                 required
-                defaultValue="City Hall"
+                defaultValue="Chhatrapati Shivaji Maharaj Terminus, Mumbai"
               />
               {state.errors?.startLocation && (
                 <p className="text-sm font-medium text-destructive">
@@ -82,9 +82,9 @@ export function RoutePlanner() {
               <Input
                 id="endLocation"
                 name="endLocation"
-                placeholder="e.g., Empire State Building"
+                placeholder="e.g., Gateway of India, Mumbai"
                 required
-                defaultValue="Grand Museum"
+                defaultValue="Gateway of India, Mumbai"
               />
               {state.errors?.endLocation && (
                 <p className="text-sm font-medium text-destructive">

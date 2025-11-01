@@ -65,7 +65,7 @@ export async function getPoiSuggestions(prevState: any, formData: FormData) {
   }
 
   const cityData =
-    "Available POIs: Modern Art Museum, City Park, Historic Library, The Daily Grind Cafe, Riverside Walk, Tech Hub, Downtown Market.";
+    "Available POIs: Qutub Minar, Humayun's Tomb, India Gate, Hauz Khas Social, Perch Wine & Coffee Bar, Sarojini Nagar Market.";
 
   try {
     const result = await suggestNewPoi({

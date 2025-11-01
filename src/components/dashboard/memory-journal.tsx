@@ -31,12 +31,24 @@ function SubmitButton() {
   );
 }
 
+type SaveMemoryState = {
+  message: string;
+  errors?: {
+    command?: string[] | undefined;
+    userId?: string[] | undefined;
+  };
+  data?: {
+    placeName: string;
+    notes?: string;
+  } | null;
+};
+
 export function MemoryJournal() {
   const { user } = useUser();
   const [memories, setMemories] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  const initialState = { message: "", errors: {}, data: null };
+  const initialState: SaveMemoryState = { message: "", errors: {}, data: null };
   const [state, dispatch] = useActionState(saveMemoryAction, initialState);
 
   const [formKey, setFormKey] = useState(Date.now());

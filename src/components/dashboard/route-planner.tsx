@@ -140,7 +140,7 @@ export function RoutePlanner() {
               <AlertTitle className="font-semibold text-lg">
                 Your Personalized Route
               </AlertTitle>
-              <AlertDescription asChild>
+              <AlertDescription>
                 <div className="mt-4">
                   <ul className="space-y-4">
                     {routeSteps.map((step: string, index: number) => (

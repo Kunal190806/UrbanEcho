@@ -13,7 +13,7 @@ import { ThemeToggle } from '@/components/theme-toggle';
 import { TravelPreferenceModal } from '@/components/dashboard/travel-preference-modal';
 
 export const metadata: Metadata = {
-  title: 'CityCompass: Your Smart City Companion',
+  title: 'UrbanEcho: Your Smart City Companion',
   description: 'An AI-powered urban companion that helps you navigate and discover your city like a local.',
 };
 
@@ -43,7 +43,7 @@ export default function RootLayout({
                     <div className="flex h-16 items-center border-b px-6">
                       <div className="flex items-center gap-3 font-semibold font-headline">
                         <Logo className="h-8 w-8 text-primary" />
-                        <span className="text-lg">CityCompass</span>
+                        <span className="text-lg">UrbanEcho</span>
                       </div>
                     </div>
                     <div className="flex-1 overflow-auto py-4">
@@ -76,7 +76,7 @@ export default function RootLayout({
                         <div className="flex h-16 items-center border-b px-6">
                           <div className="flex items-center gap-3 font-semibold font-headline">
                             <Logo className="h-8 w-8 text-primary" />
-                            <span className="text-lg text-foreground">CityCompass</span>
+                            <span className="text-lg text-foreground">UrbanEcho</span>
                           </div>
                         </div>
                         <div className="flex-1 overflow-auto py-4">

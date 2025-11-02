@@ -22,12 +22,12 @@ const coWorkingSpaces = [
   },
   {
     name: "The Work Pad",
-    location: "Udyog Vihar",
+    location: "Udyog Vihar, Gurugram",
     availability: "Available",
     amenities: ["24/7 Access", "Wi-Fi", "Parking"],
     rating: 4.7,
   },
-    {
+  {
     name: "Student Study Spot",
     location: "Near DU, Delhi",
     availability: "Available",
@@ -47,7 +47,35 @@ const coWorkingSpaces = [
     availability: "Available",
     amenities: ["Wi-Fi", "Meeting Room", "Valet"],
     rating: 4.8,
-  }
+  },
+  {
+    name: "WeWork BKC",
+    location: "Bandra Kurla Complex, Mumbai",
+    availability: "Available",
+    amenities: ["Wi-Fi", "Coffee", "Networking Events"],
+    rating: 4.9,
+  },
+  {
+    name: "91springboard",
+    location: "Andheri East, Mumbai",
+    availability: "Limited",
+    amenities: ["Wi-Fi", "Gaming Zone", "Free Snacks"],
+    rating: 4.7,
+  },
+  {
+    name: "BHIVE Workspace",
+    location: "Koramangala, Bangalore",
+    availability: "Available",
+    amenities: ["Wi-Fi", "Mentorship", "Rooftop Cafe"],
+    rating: 4.8,
+  },
+  {
+    name: "CoWrks",
+    location: "Whitefield, Bangalore",
+    availability: "Available",
+    amenities: ["Wi-Fi", "Gym Access", "Creche"],
+    rating: 4.9,
+  },
 ];
 
 export default function WorkPage() {

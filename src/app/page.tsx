@@ -52,8 +52,6 @@ import {
   Sun,
   Cloudy,
   Snowflake,
-  BarChart as BarChartIcon,
-  Save,
   Cpu,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
@@ -329,7 +327,7 @@ export default function EnergyPage() {
                     <input type="hidden" name="appliances" value={appliancesString} />
                     <input type="hidden" name="timeOfDayTariffs" value={timeOfDayTariffsString} />
 
-                    {optimizationState.message === "success" && optimizationState.data && (
+                    {optimizationState.message === "success" && optimizationState.data ? (
                         <div className="space-y-6">
                             <Card>
                                 <CardHeader>
@@ -365,22 +363,19 @@ export default function EnergyPage() {
                                 </div>
                             </div>
                         </div>
-                    )}
-
-                    {optimizationState.message && optimizationState.message !== "success" && (
-                        <Alert variant="destructive">
-                            <Info className="h-4 w-4" />
-                            <AlertTitle>Error</AlertTitle>
-                            <AlertDescription>{optimizationState.message}</AlertDescription>
-                        </Alert>
-                    )}
-
-                    {!optimizationState.data && (
+                    ) : (
                         <div className="flex flex-col items-center justify-center rounded-lg border-2 border-dashed border-muted p-8 text-center">
                             <Cpu className="h-10 w-10 text-muted-foreground" />
                             <p className="mt-4 text-sm font-medium text-muted-foreground">
                                 Get a next-day energy forecast and optimized schedules for your appliances.
                             </p>
+                            {optimizationState.message && optimizationState.message !== "success" && (
+                                <Alert variant="destructive" className="mt-4 text-left">
+                                    <Info className="h-4 w-4" />
+                                    <AlertTitle>Error</AlertTitle>
+                                    <AlertDescription>{optimizationState.message}</AlertDescription>
+                                </Alert>
+                            )}
                         </div>
                     )}
                     <AIOptimizationButton />
@@ -492,7 +487,7 @@ export default function EnergyPage() {
                     <input type="hidden" name="usageData" value={usageDataString} />
                     <input type="hidden" name="appliances" value={appliancesString} />
                     
-                    {tipsState.message === "success" && tipsState.data && (
+                    {tipsState.message === "success" && tipsState.data ? (
                         <div className="space-y-4">
                             {tipsState.data.tips.map((tip: string, index: number) => (
                                 <Alert key={index} className="bg-card/50">
@@ -502,22 +497,19 @@ export default function EnergyPage() {
                                 </Alert>
                             ))}
                         </div>
-                    )}
-
-                    {tipsState.message && tipsState.message !== "success" && (
-                        <Alert variant="destructive">
-                        <Info className="h-4 w-4" />
-                        <AlertTitle>Error</AlertTitle>
-                        <AlertDescription>{tipsState.message}</AlertDescription>
-                        </Alert>
-                    )}
-
-                    {!tipsState.data && (
+                     ) : (
                         <div className="flex flex-col items-center justify-center rounded-lg border-2 border-dashed border-muted p-8 text-center">
                             <Lightbulb className="h-10 w-10 text-muted-foreground" />
                             <p className="mt-4 text-sm font-medium text-muted-foreground">
                                 Click the button to check for unusual patterns and get smart alerts.
                             </p>
+                             {tipsState.message && tipsState.message !== "success" && (
+                                <Alert variant="destructive" className="mt-4 text-left">
+                                    <Info className="h-4 w-4" />
+                                    <AlertTitle>Error</AlertTitle>
+                                    <AlertDescription>{tipsState.message}</AlertDescription>
+                                </Alert>
+                            )}
                         </div>
                     )}
                     <AITipsButton />

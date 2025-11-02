@@ -2,9 +2,9 @@
 'use client';
 
 import { useState } from 'react';
-import { ExploreHeader } from '@/components/explore/explore-header';
-import { ExploreCard } from '@/components/explore/explore-card';
-import { SavedPlaces } from '@/components/explore/saved-places';
+import { ExploreHeader } from './explore-header';
+import { ExploreCard } from './explore-card';
+import { SavedPlaces } from './saved-places';
 import { topAttractions, type Attraction } from '@/lib/data';
 import { useSavedPlaces } from '@/hooks/use-saved-places';
 

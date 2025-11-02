@@ -1,3 +1,4 @@
+
 'use client';
 
 import {
@@ -15,8 +16,8 @@ import { useState } from 'react';
 
 // Mock user data for local state
 const mockUser = {
-  displayName: 'Jane Doe',
-  email: 'jane.doe@example.com',
+  displayName: 'life.exe',
+  email: 'kunalmule37@gmail.com',
   photoURL: 'https://picsum.photos/seed/user/100/100',
 };
 
@@ -72,7 +73,7 @@ export function UserMenu() {
           <Avatar className="h-8 w-8">
             <AvatarImage src={user.photoURL || undefined} alt={user.displayName || 'User'} />
             <AvatarFallback>
-              {user.displayName ? user.displayName.charAt(0) : <UserIcon />}
+              {user.displayName ? user.displayName.substring(0, 2) : <UserIcon />}
             </AvatarFallback>
           </Avatar>
         </Button>

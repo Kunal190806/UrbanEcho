@@ -116,7 +116,6 @@ export function RoutePlanner() {
                     id={option.id}
                     name="preferredModes"
                     value={option.id}
-                    defaultChecked={["metro", "walking"].includes(option.id)}
                   />
                   <Label
                     htmlFor={option.id}

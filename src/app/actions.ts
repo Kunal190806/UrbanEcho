@@ -22,8 +22,10 @@ import {
   poiSchema,
   routePlanSchema,
   sustainableRouteSchema,
+  optimizeEnergySchema,
 } from "@/lib/schemas";
 import { saveMemory, type SaveMemoryInput } from "@/ai/flows/save-memory-flow";
+import { optimizeEnergyUsage, type OptimizeEnergyInput } from "@/ai/flows/optimize-energy-flow";
 
 export async function getPersonalizedRoute(prevState: any, formData: FormData) {
   const validatedFields = routePlanSchema.safeParse({
@@ -175,4 +177,33 @@ export async function getAIEnergyTips(prevState: any, formData: FormData) {
       errors: {},
     };
   }
+}
+
+export async function getEnergyOptimization(prevState: any, formData: FormData) {
+    const validatedFields = optimizeEnergySchema.safeParse({
+        usageHistory: formData.get("usageHistory"),
+        weatherForecast: formData.get("weatherForecast"),
+        appliances: formData.get("appliances"),
+        timeOfDayTariffs: formData.get("timeOfDayTariffs"),
+    });
+
+    if (!validatedFields.success) {
+        return {
+            message: "Invalid form data for optimization.",
+            errors: validatedFields.error.flatten().fieldErrors,
+        };
+    }
+
+    try {
+        const result = await optimizeEnergyUsage(
+            validatedFields.data as OptimizeEnergyInput
+        );
+        return { message: "success", data: result, errors: {} };
+    } catch (error) {
+        console.error("Error in energy optimization flow:", error);
+        return {
+            message: "An error occurred while generating the energy optimization plan.",
+            errors: {},
+        };
+    }
 }

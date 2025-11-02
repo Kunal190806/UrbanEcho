@@ -1,9 +1,8 @@
-
 'use client';
 
 import { useActionState } from 'react';
 import { useFormStatus } from 'react-dom';
-import { getAIEnergyTips } from '@/app/actions';
+import { getAIEnergyTips, getEnergyOptimization } from '@/app/actions';
 import Image from 'next/image';
 import { PlaceHolderImages } from "@/lib/placeholder-images";
 import {
@@ -21,7 +20,7 @@ import {
   ChartTooltipContent,
   ChartConfig,
 } from '@/components/ui/chart';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Cell, PieChart, Pie } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Cell, PieChart, Pie, AreaChart, Area } from 'recharts';
 import { Badge } from '@/components/ui/badge';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import {
@@ -31,6 +30,8 @@ import {
   weeklyImpact,
   seasonalTips,
   applianceSchedules,
+  weatherForecast,
+  timeOfDayTariffs,
 } from '@/lib/energy-data';
 import {
   Star,
@@ -51,6 +52,9 @@ import {
   Sun,
   Cloudy,
   Snowflake,
+  BarChart as BarChartIcon,
+  Save,
+  Cpu,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
@@ -59,6 +63,10 @@ import { Switch } from '@/components/ui/switch';
 const chartConfig = {
   usage: {
     label: 'Usage (kWh)',
+  },
+  predictedUsage: {
+      label: 'Predicted (kWh)',
+      color: "hsl(var(--chart-2))",
   },
   devices: {
     label: "Devices"
@@ -132,13 +140,28 @@ function AITipsButton() {
   );
 }
 
+function AIOptimizationButton() {
+    const { pending } = useFormStatus();
+    return (
+        <Button type="submit" className="w-full mt-4" disabled={pending}>
+            {pending ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Cpu className="mr-2 h-4 w-4" />}
+            Run Optimization Engine
+        </Button>
+    );
+}
+
 export default function EnergyPage() {
   const heroImage = PlaceHolderImages.find((img) => img.id === 'smart-home');
-  const initialState = { message: '', errors: {}, data: null };
-  const [state, dispatch] = useActionState(getAIEnergyTips, initialState);
+  const tipsInitialState = { message: '', errors: {}, data: null };
+  const [tipsState, tipsDispatch] = useActionState(getAIEnergyTips, tipsInitialState);
+
+  const optimizationInitialState = { message: '', errors: {}, data: null };
+  const [optimizationState, optimizationDispatch] = useActionState(getEnergyOptimization, optimizationInitialState);
 
   const usageDataString = JSON.stringify(dailyUsageData);
   const appliancesString = JSON.stringify(energyAppliances);
+  const weatherForecastString = JSON.stringify(weatherForecast);
+  const timeOfDayTariffsString = JSON.stringify(timeOfDayTariffs);
 
   return (
     <div className="flex-1 space-y-4 p-4 md:p-6">
@@ -288,6 +311,82 @@ export default function EnergyPage() {
             </CardContent>
         </Card>
       </div>
+      
+       <Card>
+            <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                    <Cpu className="text-primary" />
+                    AI Energy Optimization Engine
+                </CardTitle>
+                <CardDescription>
+                    Predict and minimize your household energy consumption in real time.
+                </CardDescription>
+            </CardHeader>
+            <CardContent>
+                <form action={optimizationDispatch}>
+                    <input type="hidden" name="usageHistory" value={usageDataString} />
+                    <input type="hidden" name="weatherForecast" value={weatherForecastString} />
+                    <input type="hidden" name="appliances" value={appliancesString} />
+                    <input type="hidden" name="timeOfDayTariffs" value={timeOfDayTariffsString} />
+
+                    {optimizationState.message === "success" && optimizationState.data && (
+                        <div className="space-y-6">
+                            <Card>
+                                <CardHeader>
+                                    <CardTitle>Next 24-Hour Energy Forecast</CardTitle>
+                                    <CardDescription>
+                                        Predicted consumption based on your patterns and weather. Potential Savings:
+                                        <span className="font-bold text-green-600"> {optimizationState.data.potentialSavings}</span>
+                                    </CardDescription>
+                                </CardHeader>
+                                <CardContent>
+                                    <ChartContainer config={chartConfig} className="min-h-[200px] w-full">
+                                        <AreaChart accessibilityLayer data={optimizationState.data.consumptionForecast}>
+                                            <CartesianGrid vertical={false} />
+                                            <XAxis dataKey="hour" tickLine={false} axisLine={false} tickMargin={8} fontSize={12} />
+                                            <YAxis label={{ value: 'kWh', angle: -90, position: 'insideLeft', offset: -0, style: { textAnchor: 'middle', fill: 'hsl(var(--muted-foreground))' } }} />
+                                            <ChartTooltip content={<ChartTooltipContent />} />
+                                            <Area dataKey="predictedUsage" type="natural" fill="var(--color-predictedUsage)" fillOpacity={0.4} stroke="var(--color-predictedUsage)" />
+                                        </AreaChart>
+                                    </ChartContainer>
+                                </CardContent>
+                            </Card>
+
+                            <div>
+                                <h3 className="font-semibold mb-2">Optimized Appliance Schedules</h3>
+                                <div className="space-y-4">
+                                {optimizationState.data.optimizedSchedules.map((schedule: any, index: number) => (
+                                    <Alert key={index} className="bg-card/50">
+                                        <Clock className="h-4 w-4" />
+                                        <AlertTitle>{schedule.appliance}: Run at {schedule.recommendedTime}</AlertTitle>
+                                        <AlertDescription>{schedule.reason}</AlertDescription>
+                                    </Alert>
+                                ))}
+                                </div>
+                            </div>
+                        </div>
+                    )}
+
+                    {optimizationState.message && optimizationState.message !== "success" && (
+                        <Alert variant="destructive">
+                            <Info className="h-4 w-4" />
+                            <AlertTitle>Error</AlertTitle>
+                            <AlertDescription>{optimizationState.message}</AlertDescription>
+                        </Alert>
+                    )}
+
+                    {!optimizationState.data && (
+                        <div className="flex flex-col items-center justify-center rounded-lg border-2 border-dashed border-muted p-8 text-center">
+                            <Cpu className="h-10 w-10 text-muted-foreground" />
+                            <p className="mt-4 text-sm font-medium text-muted-foreground">
+                                Get a next-day energy forecast and optimized schedules for your appliances.
+                            </p>
+                        </div>
+                    )}
+                    <AIOptimizationButton />
+                </form>
+            </CardContent>
+        </Card>
 
       <div className="grid gap-6 md:grid-cols-2">
         <Card>
@@ -362,7 +461,7 @@ export default function EnergyPage() {
                                 <div key={schedule.appliance} className="flex items-center justify-between rounded-lg border p-3">
                                     <div className="space-y-1">
                                         <p className="font-medium">{schedule.appliance}</p>
-                                        <p className="text-xs text-muted-foreground">{schedule.time}</p>
+                                        <p className="text-sm text-muted-foreground">{schedule.time}</p>
                                     </div>
                                     <Switch checked={schedule.enabled} />
                                 </div>
@@ -389,13 +488,13 @@ export default function EnergyPage() {
                 </CardDescription>
             </CardHeader>
             <CardContent>
-                <form action={dispatch}>
+                <form action={tipsDispatch}>
                     <input type="hidden" name="usageData" value={usageDataString} />
                     <input type="hidden" name="appliances" value={appliancesString} />
                     
-                    {state.message === "success" && state.data && (
+                    {tipsState.message === "success" && tipsState.data && (
                         <div className="space-y-4">
-                            {state.data.tips.map((tip: string, index: number) => (
+                            {tipsState.data.tips.map((tip: string, index: number) => (
                                 <Alert key={index} className="bg-card/50">
                                     <Zap className="h-4 w-4" />
                                     <AlertTitle>Alert & Tip #{index + 1}</AlertTitle>
@@ -405,15 +504,15 @@ export default function EnergyPage() {
                         </div>
                     )}
 
-                    {state.message && state.message !== "success" && (
+                    {tipsState.message && tipsState.message !== "success" && (
                         <Alert variant="destructive">
                         <Info className="h-4 w-4" />
                         <AlertTitle>Error</AlertTitle>
-                        <AlertDescription>{state.message}</AlertDescription>
+                        <AlertDescription>{tipsState.message}</AlertDescription>
                         </Alert>
                     )}
 
-                    {!state.data && (
+                    {!tipsState.data && (
                         <div className="flex flex-col items-center justify-center rounded-lg border-2 border-dashed border-muted p-8 text-center">
                             <Lightbulb className="h-10 w-10 text-muted-foreground" />
                             <p className="mt-4 text-sm font-medium text-muted-foreground">

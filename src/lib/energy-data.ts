@@ -128,3 +128,20 @@ export const applianceSchedules: ApplianceSchedule[] = [
         enabled: false,
     }
 ];
+
+export const weatherForecast = [
+  { hour: '12 AM', temp: 28, condition: 'Clear' },
+  { hour: '3 AM', temp: 27, condition: 'Clear' },
+  { hour: '6 AM', temp: 26, condition: 'Clear' },
+  { hour: '9 AM', temp: 30, condition: 'Sunny' },
+  { hour: '12 PM', temp: 34, condition: 'Sunny' },
+  { hour: '3 PM', temp: 35, condition: 'Sunny' },
+  { hour: '6 PM', temp: 32, condition: 'Clear' },
+  { hour: '9 PM', temp: 30, condition: 'Clear' },
+];
+
+export const timeOfDayTariffs = [
+    { period: 'Off-Peak', hours: '12 AM - 6 AM', rate: 4.50 },
+    { period: 'Normal', hours: '6 AM - 6 PM', rate: 6.50 },
+    { period: 'Peak', hours: '6 PM - 12 AM', rate: 8.50 },
+];

@@ -27,3 +27,10 @@ export const energyTipsSchema = z.object({
   usageData: z.string().min(1, "Usage data is required"),
   appliances: z.string().min(1, "Appliance data is required"),
 });
+
+export const optimizeEnergySchema = z.object({
+    usageHistory: z.string().min(1, "Usage history is required."),
+    weatherForecast: z.string().min(1, "Weather forecast is required."),
+    appliances: z.string().min(1, "Appliance data is required."),
+    timeOfDayTariffs: z.string().min(1, "Tariff data is required."),
+});

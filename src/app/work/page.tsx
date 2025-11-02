@@ -9,7 +9,7 @@ const coWorkingSpaces = [
   {
     name: "InnovateHub",
     location: "Cyber City, Gurugram",
-    price: "₹500/day",
+    price: "₱500/day",
     availability: "Available",
     amenities: ["Wi-Fi", "Coffee", "Meeting Room"],
     rating: 4.8,
@@ -17,7 +17,7 @@ const coWorkingSpaces = [
   {
     name: "Creator's Den",
     location: "Sector 29, Gurugram",
-    price: "₹450/day",
+    price: "₱450/day",
     availability: "Limited",
     amenities: ["Wi-Fi", "Quiet Zone"],
     rating: 4.5,
@@ -25,7 +25,7 @@ const coWorkingSpaces = [
   {
     name: "The Work Pad",
     location: "Udyog Vihar",
-    price: "₹600/day",
+    price: "₱600/day",
     availability: "Available",
     amenities: ["24/7 Access", "Wi-Fi", "Parking"],
     rating: 4.7,
@@ -33,7 +33,7 @@ const coWorkingSpaces = [
     {
     name: "Student Study Spot",
     location: "Near DU, Delhi",
-    price: "₹300/day",
+    price: "₱300/day",
     availability: "Available",
     amenities: ["Wi-Fi", "Quiet Zone", "Library Access"],
     rating: 4.9,
@@ -41,7 +41,7 @@ const coWorkingSpaces = [
   {
     name: "Freelancer's Nook",
     location: "Hauz Khas Village, Delhi",
-    price: "₹550/day",
+    price: "₱550/day",
     availability: "Full",
     amenities: ["Wi-Fi", "Coffee", "Art Gallery"],
     rating: 4.6,
@@ -49,7 +49,7 @@ const coWorkingSpaces = [
   {
     name: "CorpConnect",
     location: "Connaught Place, Delhi",
-    price: "₹700/day",
+    price: "₱700/day",
     availability: "Available",
     amenities: ["Wi-Fi", "Meeting Room", "Valet"],
     rating: 4.8,

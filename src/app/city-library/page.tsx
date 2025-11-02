@@ -6,7 +6,7 @@ import { CityLibraryHeader } from '@/components/city-library/city-library-header
 import { CityLibraryCard } from '@/components/city-library/city-library-card';
 import { SavedPlaces } from '@/components/city-library/saved-places';
 import { topAttractions, type Attraction } from '@/lib/data';
-import { useSavedPlaces }s/use-saved-places';
+import { useSavedPlaces } from '@/hooks/use-saved-places';
 
 export default function CityLibraryPage() {
   const [attractions, setAttractions] = useState<Attraction[]>(topAttractions);

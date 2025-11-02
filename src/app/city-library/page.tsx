@@ -2,13 +2,13 @@
 'use client';
 
 import { useState } from 'react';
-import { ExploreHeader } from '@/components/explore/explore-header';
-import { ExploreCard } from '@/components/explore/explore-card';
-import { SavedPlaces } from '@/components/explore/saved-places';
+import { CityLibraryHeader } from '@/components/city-library/city-library-header';
+import { CityLibraryCard } from '@/components/city-library/city-library-card';
+import { SavedPlaces } from '@/components/city-library/saved-places';
 import { topAttractions, type Attraction } from '@/lib/data';
 import { useSavedPlaces } from '@/hooks/use-saved-places';
 
-export default function ExplorePage() {
+export default function CityLibraryPage() {
   const [attractions, setAttractions] = useState<Attraction[]>(topAttractions);
   const { savedPlaces, toggleSave, isSaved } = useSavedPlaces();
 
@@ -21,12 +21,12 @@ export default function ExplorePage() {
 
   return (
     <div className="flex-1 space-y-6 p-4 md:p-6">
-      <ExploreHeader onSearch={handleSearch} />
+      <CityLibraryHeader onSearch={handleSearch} />
       <div className="grid gap-6 md:grid-cols-3">
         <div className="md:col-span-2">
           <div className="grid gap-6 md:grid-cols-2">
             {attractions.map((attraction) => (
-              <ExploreCard
+              <CityLibraryCard
                 key={attraction.id}
                 attraction={attraction}
                 isSaved={isSaved(attraction.id)}

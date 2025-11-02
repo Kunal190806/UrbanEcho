@@ -17,28 +17,22 @@ export const favoritePlaces: FavoritePlace[] = [
     href: '/',
   },
   {
-    name: 'Route Planner',
-    address: 'Plan your daily commute',
-    icon: Map,
-    href: '/energy',
-  },
-  {
     name: 'Work',
     address: 'Cyber Hub, Gurugram',
     icon: Briefcase,
     href: '/work',
   },
   {
-    name: 'Explore',
+    name: 'City Library',
     address: 'Discover new places',
-    icon: Map,
-    href: '/explore',
+    icon: Library,
+    href: '/city-library',
   },
   {
-    name: 'Energy',
+    name: 'Energy Hub',
     address: 'Manage your consumption',
     icon: Zap,
-    href: '/',
+    href: '/energy',
   },
 ];
 

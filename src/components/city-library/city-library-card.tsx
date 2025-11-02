@@ -16,17 +16,17 @@ import { Bookmark, MapPin, Star } from 'lucide-react';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import type { Attraction } from '@/lib/data';
 
-type ExploreCardProps = {
+type CityLibraryCardProps = {
   attraction: Attraction;
   isSaved: boolean;
   onToggleSave: (attraction: Attraction) => void;
 };
 
-export function ExploreCard({
+export function CityLibraryCard({
   attraction,
   isSaved,
   onToggleSave,
-}: ExploreCardProps) {
+}: CityLibraryCardProps) {
   const image = PlaceHolderImages.find((img) => img.id === attraction.imageId);
 
   return (

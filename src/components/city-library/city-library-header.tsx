@@ -8,11 +8,11 @@ import { Button } from '@/components/ui/button';
 import { Map, Search } from 'lucide-react';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 
-type ExploreHeaderProps = {
+type CityLibraryHeaderProps = {
   onSearch: (city: string) => void;
 };
 
-export function ExploreHeader({ onSearch }: ExploreHeaderProps) {
+export function CityLibraryHeader({ onSearch }: CityLibraryHeaderProps) {
   const heroImage = PlaceHolderImages.find((img) => img.id === 'explore-hero');
   const [city, setCity] = useState('Delhi');
 
@@ -42,7 +42,7 @@ export function ExploreHeader({ onSearch }: ExploreHeaderProps) {
       <div className="absolute inset-0 bg-gradient-to-t from-background/60 to-transparent" />
       <div className="absolute inset-0 flex flex-col items-center justify-center p-6 text-center text-white">
         <h1 className="text-3xl md:text-4xl font-bold font-headline text-primary-foreground shadow-2xl">
-          Explore Your City
+          City Library
         </h1>
         <p className="mt-2 max-w-xl text-primary-foreground/90 shadow-2xl">
           Find top attractions, hidden gems, and things to do wherever you are.
@@ -52,7 +52,7 @@ export function ExploreHeader({ onSearch }: ExploreHeaderProps) {
             <Search className="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-muted-foreground" />
             <Input
               type="text"
-              placeholder="Search any city, e.g., 'Mumbai'"
+              placeholder="Search any city, e.g., 'Delhi'"
               className="pl-10 text-foreground"
               value={city}
               onChange={(e) => setCity(e.target.value)}

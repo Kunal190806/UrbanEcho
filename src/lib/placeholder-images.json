@@ -2,27 +2,27 @@
   "placeholderImages": [
     {
       "id": "poi-1",
-      "description": "A modern art museum with a striking architectural design.",
-      "imageUrl": "https://images.unsplash.com/photo-1518998053901-5348d3961a04?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8YXJ0JTIwbXVzZXVtfGVufDB8fHx8MTc2MTkzMjI2Mnww&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "art museum"
+      "description": "Gateway of India in Mumbai",
+      "imageUrl": "https://images.unsplash.com/photo-1622963518506-d6222ed3e2c9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxoaXN0b3JpYyUyMG1vbnVtZW50fGVufDB8fHx8MTc2MjAxMTg5Nnww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "historic monument"
     },
     {
       "id": "poi-2",
-      "description": "A bustling city park with a large fountain and lots of greenery.",
-      "imageUrl": "https://images.unsplash.com/photo-1561958501-4ef9547c43f9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxjaXR5JTIwcGFya3xlbnwwfHx8fDE3NjE5OTk3MTN8MA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "city park"
+      "description": "Marine Drive in Mumbai at night",
+      "imageUrl": "https://images.unsplash.com/photo-1534298261662-f8fdd25317db?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxjaXR5JTIwc2t5bGluZXxlbnwwfHx8fDE3NjE5OTU4MTZ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "city skyline"
     },
     {
       "id": "poi-3",
-      "description": "A historic library with grand reading rooms and rows of old books.",
-      "imageUrl": "https://images.unsplash.com/photo-1543336414-319b2b916cdb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxoaXN0b3JpYyUyMGxpYnJhcnl8ZW58MHx8fHwxNzYyMDIwODg2fDA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "historic library"
+      "description": "Elephanta Caves near Mumbai",
+      "imageUrl": "https://images.unsplash.com/photo-1709650010438-6f07840a1411?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxhbmNpZW50JTIwY2F2ZXN8ZW58MHx8fHwxNzYyMDUwNjEwfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "ancient caves"
     },
     {
       "id": "poi-4",
-      "description": "A trendy cafe with artisanal coffee and a cozy atmosphere.",
-      "imageUrl": "https://images.unsplash.com/photo-1684595011788-d7ac732cd6e0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8dHJlbmR5JTIwY2FmZXxlbnwwfHx8fDE3NjIwMjA4ODZ8MA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "trendy cafe"
+      "description": "A lush green area in Sanjay Gandhi National Park",
+      "imageUrl": "https://images.unsplash.com/photo-1545394734-b4140a8cfa9c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxuYXRpb25hbCUyMHBhcmt8ZW58MHx8fHwxNzYyMDQ4NTc3fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "national park"
     },
     {
       "id": "map",
@@ -105,7 +105,7 @@
     {
       "id": "explore-hero",
       "description": "A vibrant and colorful cityscape.",
-      "imageUrl": "https://images.unsplash.com/photo-1480714378408-67cf0d13bc1b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxjaXR5c2NhcGV8ZW58MHx8fHwxNzYyMDEwODMwfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1480714378408-67cf0d13bc1b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxjaXR5c2NhcGV8ZW58MHx8fHwxNzYyMDEwODMwfDA&ixlibrb-4.1.0&q=80&w=1080",
       "imageHint": "cityscape"
     }
   ]

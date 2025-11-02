@@ -199,6 +199,7 @@ export type Attraction = {
   rating: number;
   distance: string;
   imageId: string;
+  city: string;
 };
 
 export const topAttractions: Attraction[] = [
@@ -209,6 +210,7 @@ export const topAttractions: Attraction[] = [
     rating: 4.8,
     distance: "2.5 km",
     imageId: "explore-1",
+    city: "Delhi",
   },
   {
     id: "attr-2",
@@ -217,6 +219,7 @@ export const topAttractions: Attraction[] = [
     rating: 4.6,
     distance: "8.1 km",
     imageId: "explore-2",
+    city: "Delhi",
   },
   {
     id: "attr-3",
@@ -225,5 +228,42 @@ export const topAttractions: Attraction[] = [
     rating: 4.7,
     distance: "10.3 km",
     imageId: "explore-3",
+    city: "Delhi",
+  },
+  {
+    id: "attr-4",
+    name: "Gateway of India",
+    description: "An arch-monument built in the early 20th century.",
+    rating: 4.7,
+    distance: "N/A",
+    imageId: "poi-1",
+    city: "Mumbai",
+  },
+  {
+    id: "attr-5",
+    name: "Marine Drive",
+    description: "A 3.6-kilometre-long boulevard in South Mumbai.",
+    rating: 4.8,
+    distance: "N/A",
+    imageId: "poi-2",
+    city: "Mumbai",
+  },
+  {
+    id: "attr-6",
+    name: "Elephanta Caves",
+    description: "A network of sculpted caves on Elephanta Island.",
+    rating: 4.5,
+    distance: "N/A",
+    imageId: "poi-3",
+    city: "Mumbai",
+  },
+  {
+    id: "attr-7",
+    name: "Sanjay Gandhi National Park",
+    description: "A large protected area in the northern part of Mumbai.",
+    rating: 4.4,
+    distance: "N/A",
+    imageId: "poi-4",
+    city: "Mumbai",
   },
 ];

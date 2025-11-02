@@ -9,20 +9,18 @@ import { topAttractions, type Attraction } from '@/lib/data';
 import { useSavedPlaces } from '@/hooks/use-saved-places';
 
 export default function CityLibraryPage() {
-  const [attractions, setAttractions] = useState<Attraction[]>(topAttractions);
+  const [attractions, setAttractions] = useState<Attraction[]>(topAttractions.filter(attraction => attraction.city.toLowerCase() === 'delhi'));
   const { savedPlaces, toggleSave, isSaved } = useSavedPlaces();
 
   const handleSearch = (city: string) => {
     if (!city) {
-      setAttractions(topAttractions);
+      setAttractions(topAttractions.filter(attraction => attraction.city.toLowerCase() === 'delhi'));
       return;
     }
 
     const lowercasedCity = city.toLowerCase();
     const filteredAttractions = topAttractions.filter(
-      (attraction) =>
-        attraction.name.toLowerCase().includes(lowercasedCity) ||
-        attraction.description.toLowerCase().includes(lowercasedCity)
+      (attraction) => attraction.city.toLowerCase() === lowercasedCity
     );
     setAttractions(filteredAttractions);
   };
@@ -45,7 +43,7 @@ export default function CityLibraryPage() {
             ) : (
               <div className="md:col-span-2 text-center text-muted-foreground py-12">
                 <p className="text-lg">No attractions found for your search.</p>
-                <p>Try searching for "Delhi" to see some examples.</p>
+                <p>Try searching for "Delhi" or "Mumbai" to see some examples.</p>
               </div>
             )}
           </div>

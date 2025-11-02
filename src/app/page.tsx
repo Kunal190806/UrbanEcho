@@ -445,6 +445,7 @@ export default function EnergyPage() {
                                 <Alert key={index} className="bg-card/50">
                                     {getSeasonIcon(tip.season)}
                                     <AlertTitle className="ml-1">{tip.season}</AlertTitle>
+
                                     <AlertDescription>{tip.tip}</AlertDescription>
                                 </Alert>
                             ))}
